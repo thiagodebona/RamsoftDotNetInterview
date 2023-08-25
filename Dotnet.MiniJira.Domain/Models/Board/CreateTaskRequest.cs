@@ -1,6 +1,4 @@
-﻿using Dotnet.MiniJira.Domain.Core;
-
-namespace Dotnet.MiniJira.Domain.Models.Board
+﻿namespace Dotnet.MiniJira.Domain.Models.Board
 {
     public class CreateTaskRequest
     {

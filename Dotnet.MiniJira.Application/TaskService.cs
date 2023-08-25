@@ -34,28 +34,19 @@ public class TaskService : ITaskService
 
         var board = await _boardService.GetById(model.BoardId);
 
-        foreach (var column in board.Columns.Where(cl => cl.Tasks?.Any() != null))
-        {
-            if (column.Tasks == null || !column.Tasks.Any())
-                continue;
+        var boardColumn = board.Columns.ElementAt(board.Columns.IndexOf(FindColumnByTask(board, model.TaskId)));
 
-            foreach (var task in column.Tasks)
-            {
-                if (task.Id == model.TaskId)
-                {
-                    if (task.Attachments == null)
-                        task.Attachments = new List<string>();
+        var item = await FindTaskInBoard(board, model.TaskId);
 
-                    task.Attachments.AddRange(model.Attachments);
+        var itemToUpdate = boardColumn.Tasks.ElementAt(boardColumn.Tasks.IndexOf(item));
+        if (itemToUpdate == null)
+            itemToUpdate.Attachments = new List<string>();
 
-                    await _boardRepository.UpdateAsync(board, new CancellationToken());
+        itemToUpdate.Attachments.AddRange(model.Attachments);
 
-                    return task;
-                }
-            }
-        }
+        await _boardRepository.UpdateAsync(board, new CancellationToken());
 
-        throw new Exception("Something went wrong while trying to insert attachments to this task");
+        return item;
     }
 
     public async Task<Task> Assign(AssignTaskRequest model)
@@ -67,25 +58,24 @@ public class TaskService : ITaskService
 
         var user = await _userService.GetById(model.UserId);
 
-        foreach (var column in board.Columns.Where(cl => cl.Tasks?.Any() != null))
-        {
-            if (column.Tasks == null || !column.Tasks.Any())
-                continue;
+        var boardColumn = board.Columns.ElementAt(board.Columns.IndexOf(FindColumnByTask(board, model.TaskId)));
 
-            foreach (var task in column.Tasks)
-            {
-                if (task.Id == model.TaskId)
-                {
-                    task.Assignee = user.Id;
+        var currentColumn = board.Columns.ElementAt(board.Columns.IndexOf(boardColumn));
 
-                    await _boardRepository.UpdateAsync(board, new CancellationToken());
+        var currentTask = currentColumn?.Tasks?.FirstOrDefault(x => x.Id == model.TaskId);
 
-                    return task;
-                }
-            }
-        }
+        var indexToUpdate = currentColumn.Tasks?.IndexOf(currentTask);
 
-        throw new Exception("Something went wrong while trying to assigne the task to a user");
+        var itemToUpdate = board.Columns.ElementAt(board.Columns.IndexOf(boardColumn))?.Tasks?.ElementAt(indexToUpdate.Value);
+
+        if (itemToUpdate.Assignee == user.Id)
+            throw new Exception($"This task is already assigned to user {user.Name}");
+
+        itemToUpdate.Assignee = user.Id;
+
+        await _boardRepository.UpdateAsync(board, new CancellationToken());
+
+        return itemToUpdate;
     }
 
     public async Task<Board> CreateTask(string userId, CreateTaskRequest model)
@@ -101,11 +91,9 @@ public class TaskService : ITaskService
             throw new Exception($"Task name and description are mandatory");
 
         var board = await _boardService.GetById(model.BoardId);
-        if (board == null)
-            throw new KeyNotFoundException($"Board {model.BoardId} not found");
 
         if (board.Columns == null || !board.Columns.Any())
-            throw new Exception($"The board {model.BoardId} has no column, to create a new task you need at least one column in your board!");
+            throw new Exception($"The board {model.BoardId} has no column, to create a new task you need at least one column at it!");
 
 
         var firstFoundColumn = board.Columns.FirstOrDefault();
@@ -133,29 +121,64 @@ public class TaskService : ITaskService
         return board;
     }
 
-    public async Task<Board> DeleteTask(string userId, DeleteTaskRequest model)
+    public async Task<Task> UpdateTask(UpdateTaskRequest model)
+    {
+        if (string.IsNullOrEmpty(model.BoardId) || string.IsNullOrEmpty(model.TaskId))
+            throw new Exception("The fields, boardid and taskId are required for this operation");
+
+        var board = await _boardService.GetById(model.BoardId);
+
+        var boardColumn = board.Columns.ElementAt(board.Columns.IndexOf(FindColumnByTask(board, model.TaskId)));
+
+        var currentColumn = board.Columns.ElementAt(board.Columns.IndexOf(boardColumn));
+
+        var currentTask = currentColumn?.Tasks?.FirstOrDefault(x => x.Id == model.TaskId);
+
+        var indexToUpdate = currentColumn.Tasks?.IndexOf(currentTask);
+
+        var itemToUpdate = board.Columns.ElementAt(board.Columns.IndexOf(boardColumn))?.Tasks?.ElementAt(indexToUpdate.Value);
+
+        if (string.IsNullOrEmpty(model.Task.Name) &&
+            string.IsNullOrEmpty(model.Task.Description) &&
+            !model.Task.IsFavorite.HasValue &&
+            !model.Task.DeadLine.HasValue)
+        {
+            throw new Exception("Nothing to update");
+        }
+
+        if (!string.IsNullOrEmpty(model.Task.Name) && itemToUpdate.Name != model.Task.Name)
+            itemToUpdate.Name = model.Task.Name;
+
+        if (!string.IsNullOrEmpty(model.Task.Description) && itemToUpdate.Description != model.Task.Description)
+            itemToUpdate.Description = model.Task.Description;
+
+        if (model.Task.DeadLine.HasValue && itemToUpdate.DeadLine != model.Task.DeadLine.Value)
+            itemToUpdate.DeadLine = model.Task.DeadLine.Value;
+
+        if (model.Task.IsFavorite.HasValue && itemToUpdate.IsFavorite != model.Task.IsFavorite)
+            itemToUpdate.IsFavorite = model.Task.IsFavorite.Value;
+
+        await _boardRepository.UpdateAsync(board, new CancellationToken());
+
+        return itemToUpdate;
+    }
+
+    public async Task<Board> DeleteTask(DeleteTaskRequest model)
     {
         var board = await _boardService.GetById(model.BoardId);
-        if (board == null)
-            throw new KeyNotFoundException($"Board {model.BoardId} not found");
 
+        var boardColumn = board.Columns.ElementAt(board.Columns.IndexOf(FindColumnByTask(board, model.TaskId)));
 
-        var columnToUse = board.Columns?.FirstOrDefault(p => p.Id == model.ColumnId);
-        if (columnToUse == null)
-            throw new KeyNotFoundException($"Column {model.ColumnId} not found");
+        var currentColumn = board.Columns.ElementAt(board.Columns.IndexOf(boardColumn));
 
-        if (columnToUse.Tasks == null || !columnToUse.Tasks.Any())
-            throw new KeyNotFoundException($"The column {model.ColumnId} has no tasks to be deleted");
+        if (currentColumn.Tasks == null || !currentColumn.Tasks.Any())
+            throw new KeyNotFoundException($"The column {boardColumn.Id} has no tasks to be deleted");
 
-        var taskToDelete = columnToUse.Tasks.FirstOrDefault(p => p.Id == model.TaskId);
-        if (taskToDelete == null)
-            throw new KeyNotFoundException($"task {model.TaskId} not found");
+        var currentTask = currentColumn?.Tasks?.FirstOrDefault(x => x.Id == model.TaskId);
 
+        var indexToRemove = currentColumn.Tasks?.IndexOf(currentTask);
 
-        var indexOfColumnToUse = board.Columns.IndexOf(columnToUse);
-        var indexOfTask = board.Columns.ElementAt(indexOfColumnToUse).Tasks.IndexOf(taskToDelete);
-
-        board.Columns.ElementAt(indexOfColumnToUse).Tasks.RemoveAt(indexOfTask);
+        board.Columns.ElementAt(board.Columns.IndexOf(boardColumn))?.Tasks?.RemoveAt(indexToRemove.Value);
 
         await _boardRepository.UpdateAsync(board, new CancellationToken());
 
@@ -165,8 +188,6 @@ public class TaskService : ITaskService
     public async Task<List<Task>> GetAll(string boardId)
     {
         var board = await _boardService.GetById(boardId);
-        if (board == null)
-            throw new KeyNotFoundException($"Board {boardId} not found");
 
         var allTasks = new List<Task>();
         board.Columns.ForEach(item => item.Tasks?.ForEach(tsk => allTasks.Add(tsk)));
@@ -177,23 +198,58 @@ public class TaskService : ITaskService
     public async Task<Task> GetById(string boardId, string taskId)
     {
         var board = await _boardService.GetById(boardId);
-        if (board == null)
-            throw new KeyNotFoundException($"Board {boardId} not found");
 
-        Task taskByid = new Task();
+        return await FindTaskInBoard(board, taskId);
+    }
+
+    public async Task<Board> MoveTask(MoveTaskRequest model)
+    {
+        if (string.IsNullOrEmpty(model.BoardId) || string.IsNullOrEmpty(model.NewColumnId) || string.IsNullOrEmpty(model.TaskId))
+            throw new Exception("The fields, boardid, newColumnId and taskId are required for this operation");
+
+        var board = await _boardService.GetById(model.BoardId);
+        var task = await GetById(model.BoardId, model.TaskId);
+
+        // Copy the task to the other new column
+        var newTaskColumn = board.Columns.FirstOrDefault(p => p.Id == model.NewColumnId);
+        if (newTaskColumn == null)
+            throw new Exception($"The new column {model.NewColumnId} could not be found");
+
+        board.Columns.ElementAt(board.Columns.IndexOf(newTaskColumn)).Tasks?.Add(task);
+
+        // Remove it from the previews one
+        var oldTaskColumn = FindColumnByTask(board, model.TaskId);
+        var taskToRemove = oldTaskColumn.Tasks.FirstOrDefault(p => p.Id == model.TaskId);
+        board.Columns.ElementAt(board.Columns.IndexOf(oldTaskColumn)).Tasks?.Remove(taskToRemove);
+
+        await _boardRepository.UpdateAsync(board, new CancellationToken());
+
+        return board;
+    }
+
+    private async Task<Task> FindTaskInBoard(Board board, string taskId)
+    {
+        var itemToReturn = FindColumnByTask(board, taskId);
+
+        var taskToReturn = itemToReturn?.Tasks?.FirstOrDefault(tsk => tsk.Id == taskId);
+
+        if (taskToReturn == null)
+            throw new KeyNotFoundException($"Task {taskId} not found");
+
+        return taskToReturn;
+    }
+
+    private BoardColumns FindColumnByTask(Board board, string taskId)
+    {
         foreach (var item in board.Columns)
         {
             var found = item.Tasks?.FirstOrDefault(tsk => tsk.Id == taskId);
             if (found != null)
             {
-                taskByid = found;
-                break;
+                return item;
             }
         }
 
-        if (taskByid == null)
-            throw new KeyNotFoundException($"Task {taskId} not found");
-
-        return taskByid;
+        throw new KeyNotFoundException($"Task {taskId} not found");
     }
 }

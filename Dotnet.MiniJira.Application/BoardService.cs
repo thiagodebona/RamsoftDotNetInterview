@@ -149,7 +149,7 @@ public class BoardService : IBoardService
     public async Task<Board> GetById(string id)
     {
         var board = (await _boardRepository.FindBy(x => x.Id == id.ToString(), new CancellationToken())).FirstOrDefault();
-        if (board == null) throw new KeyNotFoundException("Board not found");
+        if (board == null) throw new KeyNotFoundException($"Board {id} not found");
         return board;
     }
 
