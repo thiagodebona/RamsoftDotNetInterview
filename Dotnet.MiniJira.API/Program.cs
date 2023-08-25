@@ -2,11 +2,7 @@ using Dotnet.MiniJira.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var services = builder.Services;
-
-builder.WebHost.UseUrls(builder.Configuration.GetSection("AppSettings").GetValue<string>("ServerUrl"));
-
-services.ConfigureServer(builder);
+builder.Services.ConfigureServer(builder);
 
 var app = builder.Build();
 

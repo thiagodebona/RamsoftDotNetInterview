@@ -13,11 +13,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet.MiniJira.Tests", "Do
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet.MiniJira.Application", "Dotnet.MiniJira.Application\Dotnet.MiniJira.Application.csproj", "{1F90928B-F749-4B48-A523-B1975AD00D8E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet.LiveWebSocket.Notifications", "Dotnet.LiveWebSocket.Notifications\Dotnet.LiveWebSocket.Notifications.csproj", "{57DEB206-1C2C-482E-A481-E0509BBF8CF2}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker files", "Docker files", "{CDAC6909-190F-49AA-806F-F959E15E45FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet.MiniJira.API", "Dotnet.MiniJira.API\Dotnet.MiniJira.API.csproj", "{B1011620-680D-44FC-A1DF-9519DFC762CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet.MiniJira.API", "Dotnet.MiniJira.API\Dotnet.MiniJira.API.csproj", "{B1011620-680D-44FC-A1DF-9519DFC762CE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{BA694F59-F481-487D-B551-E03225F88763}"
+	ProjectSection(SolutionItems) = preProject
+		..\Net Core Developer Assessment.docx = ..\Net Core Developer Assessment.docx
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +44,6 @@ Global
 		{1F90928B-F749-4B48-A523-B1975AD00D8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F90928B-F749-4B48-A523-B1975AD00D8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F90928B-F749-4B48-A523-B1975AD00D8E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{57DEB206-1C2C-482E-A481-E0509BBF8CF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{57DEB206-1C2C-482E-A481-E0509BBF8CF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{57DEB206-1C2C-482E-A481-E0509BBF8CF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{57DEB206-1C2C-482E-A481-E0509BBF8CF2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B1011620-680D-44FC-A1DF-9519DFC762CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B1011620-680D-44FC-A1DF-9519DFC762CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1011620-680D-44FC-A1DF-9519DFC762CE}.Release|Any CPU.ActiveCfg = Release|Any CPU

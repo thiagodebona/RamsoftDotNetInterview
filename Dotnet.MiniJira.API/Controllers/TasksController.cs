@@ -43,6 +43,21 @@ public class TasksController : ControllerBase
     }
 
 
+    [HttpPost("Assign")]
+    public async Task<IActionResult> Assign(AssignTaskRequest model)
+    {
+        var task = await _taskService.Assign(model);
+        return Ok(task);
+    }
+
+    [HttpPost("Attachments")]
+    public async Task<IActionResult> Attachments(AddAttachmentRequest model)
+    {
+        var task = await _taskService.AddAttachments(model);
+        return Ok(task);
+    }
+
+
     [HttpGet("{boardId}/{taskId}")]
     public async Task<IActionResult> GetById(string boardId, string taskId)
     {

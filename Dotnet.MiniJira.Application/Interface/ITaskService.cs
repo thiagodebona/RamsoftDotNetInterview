@@ -9,4 +9,6 @@ public interface ITaskService
     public Task<List<Task>> GetAll(string boardId);
     public Task<Board> CreateTask(string userId, CreateTaskRequest model);
     public Task<Board> DeleteTask(string userId, DeleteTaskRequest model);
+    public Task<Task> Assign(AssignTaskRequest model);
+    public Task<Task> AddAttachments(AddAttachmentRequest model);
 }

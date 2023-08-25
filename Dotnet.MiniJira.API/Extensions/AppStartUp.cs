@@ -9,6 +9,8 @@ namespace Dotnet.MiniJira.API.Extensions
     {
         public static void ConfigureServer(this IServiceCollection services, WebApplicationBuilder builder)
         {
+            builder.WebHost.UseUrls(builder.Configuration.GetSection("AppSettings").GetValue<string>("ServerUrl"));
+
             services.AddCors();
             services.AddControllers()
                 .AddJsonOptions(x => x.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull);
@@ -22,7 +24,7 @@ namespace Dotnet.MiniJira.API.Extensions
         public static void ConfigureApp(this WebApplication app)
         {
             /* Seeding the db */
-            app.Services.GetService<IInitialDataSeederService>().SeedDatabase().Wait();
+            app.Services.GetService<IInitialDataSeederService>()?.SeedDatabase().Wait();
 
             app.ConfigureSwagger();
 
