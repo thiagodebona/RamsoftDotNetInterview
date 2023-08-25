@@ -84,18 +84,50 @@ public class BoardService : IBoardService
         return true;
     }
 
-    public async Task<List<Board>> GetAll()
+    public async Task<Board> UpdateBoard(string userId, UpdateBoardRequest model)
     {
-        return await _boardRepository.FindAsync(new CancellationToken());
+        var board = (await _boardRepository.FindBy(x => x.Id == model.BoardId.ToString(), new CancellationToken())).FirstOrDefault();
+        if (board == null)
+            throw new KeyNotFoundException($"Board {model.BoardId} not found");
+
+        if (!string.IsNullOrEmpty(model.Name) || !string.IsNullOrEmpty(model.Description))
+            throw new KeyNotFoundException($"You need to inform at least name or description");
+
+        board.Name = !string.IsNullOrEmpty(model.Name) ? model.Name : board.Name;
+        board.Description = !string.IsNullOrEmpty(model.Description) ? model.Description : board.Description;
+
+        await _boardRepository.UpdateAsync(board, new CancellationToken());
+
+        return board;
+    }
+
+    public async Task<Board> CreateColum(CreateBoardColumnRequest model)
+    {
+        var board = (await _boardRepository.FindBy(x => x.Id == model.BoardId, new CancellationToken())).FirstOrDefault();
+        if (board == null) throw new KeyNotFoundException($"Board {model.BoardId} not found");
+
+        if (board.Columns == null)
+        {
+            board.Columns = new List<BoardColumns>();
+        }
+
+        model.Column.Tasks = new List<Task>();
+
+        board.Columns.Add(model.Column);
+
+        // Update the db record
+        await _boardRepository.UpdateAsync(board, new CancellationToken());
+
+        return board;
     }
 
     public async Task<Board> DeleteColum(DeleteBoardColumnRequest model)
     {
-        var board = (await _boardRepository.FindBy(x => x.Id == model.boardId, new CancellationToken())).FirstOrDefault();
-        if (board == null) throw new KeyNotFoundException($"Board {model.boardId} not found");
+        var board = (await _boardRepository.FindBy(x => x.Id == model.BoardId, new CancellationToken())).FirstOrDefault();
+        if (board == null) throw new KeyNotFoundException($"Board {model.BoardId} not found");
 
-        var columnToRemove = board.Columns.FirstOrDefault(p => p.Id == model.columnId);
-        if (columnToRemove == null) throw new KeyNotFoundException($"Board column {model.columnId} not found");
+        var columnToRemove = board.Columns.FirstOrDefault(p => p.Id == model.ColumnId);
+        if (columnToRemove == null) throw new KeyNotFoundException($"Board column {model.ColumnId} not found");
 
         // Check if it has tasks on it, if yes port them to the archives root field
         if (columnToRemove.Tasks != null && columnToRemove.Tasks.Any())
@@ -114,30 +146,15 @@ public class BoardService : IBoardService
         return board;
     }
 
-    public async Task<Board> CreateColum(CreateBoardColumnRequest model)
-    {
-        var board = (await _boardRepository.FindBy(x => x.Id == model.boardId, new CancellationToken())).FirstOrDefault();
-        if (board == null) throw new KeyNotFoundException($"Board {model.boardId} not found");
-
-        if (board.Columns == null)
-        {
-            board.Columns = new List<BoardColumns>();
-        }
-
-        model.column.Tasks = new List<Task>();
-
-        board.Columns.Add(model.column);
-
-        // Update the db record
-        await _boardRepository.UpdateAsync(board, new CancellationToken());
-
-        return board;
-    }
-
     public async Task<Board> GetById(string id)
     {
         var board = (await _boardRepository.FindBy(x => x.Id == id.ToString(), new CancellationToken())).FirstOrDefault();
         if (board == null) throw new KeyNotFoundException("Board not found");
         return board;
+    }
+
+    public async Task<List<Board>> GetAll()
+    {
+        return await _boardRepository.FindAsync(new CancellationToken());
     }
 }

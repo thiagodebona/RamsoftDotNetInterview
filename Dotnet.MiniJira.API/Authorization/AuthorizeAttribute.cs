@@ -1,5 +1,6 @@
-namespace WebApi.Authorization;
+namespace Dotnet.MiniJira.API.Authorization;
 
+using Dotnet.MiniJira.API.Middleware;
 using Dotnet.MiniJira.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;

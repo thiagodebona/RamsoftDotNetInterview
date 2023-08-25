@@ -9,4 +9,5 @@ public class AppSettings
     public int RefreshTokenTTL { get; set; }
 
     public string NotificationServer { get; set; }
+    public string ServerUrl { get; set; }
 }

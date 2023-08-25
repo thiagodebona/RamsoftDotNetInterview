@@ -1,9 +1,10 @@
 ﻿namespace WebApi.Controllers;
 
+using Dotnet.MiniJira.API.Authorization;
+using Dotnet.MiniJira.API.Middleware;
 using Dotnet.MiniJira.Application.Interface;
 using Dotnet.MiniJira.Domain.Models.Users;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.Authorization;
 
 [Authorize]
 [ApiController]

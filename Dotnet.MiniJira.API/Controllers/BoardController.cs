@@ -1,10 +1,10 @@
 ﻿namespace WebApi.Controllers;
 
+using Dotnet.MiniJira.API.Authorization;
 using Dotnet.MiniJira.Application.Interface;
 using Dotnet.MiniJira.Domain.Entities;
 using Dotnet.MiniJira.Domain.Models.Board;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.Authorization;
 
 [Authorize]
 [ApiController]
@@ -18,7 +18,7 @@ public class BoardController : ControllerBase
         _boardService = boardService;
     }
 
-    [HttpPost("create")]
+    [HttpPost()]
     public async Task<IActionResult> CreateBoard(CreateBoardRequest model)
     {
         var userId = (User)Request.HttpContext.Items["User"];
@@ -32,8 +32,8 @@ public class BoardController : ControllerBase
         return Ok(board);
     }
 
-    [HttpDelete()]
-    public async Task<IActionResult> DeleteBoard(DeleteBoardRequest model)
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteBoard(string id)
     {
         var userId = (User)Request.HttpContext.Items["User"];
         if (userId.Profile != Dotnet.MiniJira.Domain.Enums.User.UserProfile.ADMIN)
@@ -41,8 +41,23 @@ public class BoardController : ControllerBase
             throw new Exception("Only admin profiles can delete new boards");
         }
 
-        var board = await _boardService.DeleteBoard(model.boardId);
-        return Ok(board);
+        await _boardService.DeleteBoard(id);
+
+        return Ok();
+    }
+
+    [HttpPut()]
+    public async Task<IActionResult> UpdateBoard([FromBody]UpdateBoardRequest model)
+    {
+        var userId = (User)Request.HttpContext.Items["User"];
+        if (userId.Profile != Dotnet.MiniJira.Domain.Enums.User.UserProfile.ADMIN)
+        {
+            throw new Exception("Only admin profiles can update boards");
+        }
+
+        var resultUpdate = await _boardService.UpdateBoard(userId.Id, model);
+
+        return Ok(resultUpdate);
     }
 
 
@@ -56,8 +71,8 @@ public class BoardController : ControllerBase
     [HttpDelete("DeleteColum")]
     public async Task<IActionResult> DeleteColum(DeleteBoardColumnRequest model)
     {
-        var user = await _boardService.DeleteColum(model);
-        return Ok(user);
+        var board = await _boardService.DeleteColum(model);
+        return Ok(board);
     }
 
     [HttpPost("CreateColum")]

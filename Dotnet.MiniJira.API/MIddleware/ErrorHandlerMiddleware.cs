@@ -1,4 +1,4 @@
-namespace WebApi.Middleware;
+namespace Dotnet.MiniJira.API.Middleware;
 
 using Dotnet.MiniJira.Domain.Helpers;
 using System.Net;

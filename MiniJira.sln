@@ -3,17 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34018.315
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniJira.API", "Dotnet.MiniJira.API\MiniJira.API.csproj", "{4A9EFB66-60EB-40FC-8FB5-2980C35792E6}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{D3E038BB-5539-428B-92DA-FB1CB46341BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet.MiniJira.Domain", "Dotnet.MiniJira.Domain\Dotnet.MiniJira.Domain.csproj", "{0D6DDC79-4CB8-41C6-8532-F72AE9238B5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet.MiniJira.Domain", "Dotnet.MiniJira.Domain\Dotnet.MiniJira.Domain.csproj", "{0D6DDC79-4CB8-41C6-8532-F72AE9238B5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet.MiniJira.Infrastructure", "Dotnet.MiniJira.Infrastructure\Dotnet.MiniJira.Infrastructure.csproj", "{E03BF33D-253A-4CFC-B244-0D40D3FD78FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet.MiniJira.Infrastructure", "Dotnet.MiniJira.Infrastructure\Dotnet.MiniJira.Infrastructure.csproj", "{E03BF33D-253A-4CFC-B244-0D40D3FD78FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet.MiniJira.Tests", "Dotnet.MiniJira.Tests\Dotnet.MiniJira.Tests.csproj", "{D9841BD1-026F-4F58-8336-4C358F95F810}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet.MiniJira.Tests", "Dotnet.MiniJira.Tests\Dotnet.MiniJira.Tests.csproj", "{D9841BD1-026F-4F58-8336-4C358F95F810}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet.MiniJira.Application", "Dotnet.MiniJira.Application\Dotnet.MiniJira.Application.csproj", "{1F90928B-F749-4B48-A523-B1975AD00D8E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet.LiveWebSocket.Notifications", "Dotnet.LiveWebSocket.Notifications\Dotnet.LiveWebSocket.Notifications.csproj", "{57DEB206-1C2C-482E-A481-E0509BBF8CF2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker files", "Docker files", "{CDAC6909-190F-49AA-806F-F959E15E45FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet.MiniJira.API", "Dotnet.MiniJira.API\Dotnet.MiniJira.API.csproj", "{B1011620-680D-44FC-A1DF-9519DFC762CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +25,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4A9EFB66-60EB-40FC-8FB5-2980C35792E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4A9EFB66-60EB-40FC-8FB5-2980C35792E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4A9EFB66-60EB-40FC-8FB5-2980C35792E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4A9EFB66-60EB-40FC-8FB5-2980C35792E6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0D6DDC79-4CB8-41C6-8532-F72AE9238B5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0D6DDC79-4CB8-41C6-8532-F72AE9238B5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D6DDC79-4CB8-41C6-8532-F72AE9238B5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -41,6 +41,14 @@ Global
 		{1F90928B-F749-4B48-A523-B1975AD00D8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F90928B-F749-4B48-A523-B1975AD00D8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F90928B-F749-4B48-A523-B1975AD00D8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57DEB206-1C2C-482E-A481-E0509BBF8CF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57DEB206-1C2C-482E-A481-E0509BBF8CF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57DEB206-1C2C-482E-A481-E0509BBF8CF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57DEB206-1C2C-482E-A481-E0509BBF8CF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1011620-680D-44FC-A1DF-9519DFC762CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1011620-680D-44FC-A1DF-9519DFC762CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1011620-680D-44FC-A1DF-9519DFC762CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1011620-680D-44FC-A1DF-9519DFC762CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
