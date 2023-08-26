@@ -1,4 +1,4 @@
-namespace WebApi.Authorization;
+namespace Dotnet.MiniJira.Application.Authorization;
 
 using Dotnet.MiniJira.Application.Interface;
 using Dotnet.MiniJira.Domain.Entities;

@@ -14,18 +14,21 @@ using System.Linq;
 public class UserService : IUserService
 {
     private readonly ILogger<UserService> _logger;
-    private readonly IMongoBaseRepository<User> _userRepository;
     private readonly AppSettings _appSettings;
+    private readonly IMongoBaseRepository<User> _userRepository;
+    private readonly IBroadcasterService _broadcasterService;
     private readonly IJwtService _jwtUtils;
 
     public UserService(
         ILogger<UserService> logger,
         IMongoBaseRepository<User> userRepository,
+        IBroadcasterService broadcasterService,
         IJwtService jwtUtils,
         IOptions<AppSettings> appSettings)
     {
         _logger = logger;
         _userRepository = userRepository;
+        _broadcasterService = broadcasterService;
         _jwtUtils = jwtUtils;
         _appSettings = appSettings.Value;
     }
@@ -41,6 +44,9 @@ public class UserService : IUserService
         // authentication successful so generate jwt and refresh tokens
         var jwtToken = _jwtUtils.GenerateJwtToken(user);
         var refreshToken = _jwtUtils.GenerateRefreshToken(ipAddress);
+
+        var message = $"User '{user.Name}', username '{user.Username}' has just logged in at {DateTime.Now.ToUniversalTime()}'";
+        await _broadcasterService.BroadcastEvent(message);
 
         return new AuthenticateResponse(user, jwtToken, refreshToken.Token);
     }

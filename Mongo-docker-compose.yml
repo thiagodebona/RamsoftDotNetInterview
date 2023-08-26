@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: app
+    container_name: app
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - '$PORT:$PORT'
+
+  mongo:
+    image: mongo:6.0.3
+    container_name: mongo
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=super_admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin123
+      - MONGO_INITDB_DATABASE=MiniJira
+    ports:
+      - '27017'
+    volumes:
+      - dbdata:/data/db
+
+volumes:
+  dbdata:
+  cache:
+    driver: local

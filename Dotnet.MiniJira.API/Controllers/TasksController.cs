@@ -21,7 +21,7 @@ public class TasksController : ControllerBase
     [HttpPost()]
     public async Task<IActionResult> CreateTask(CreateTaskRequest model)
     {
-        return Ok(await _taskService.CreateTask(((User)Request.HttpContext.Items["User"]).Id, model));
+        return Ok(await _taskService.CreateTask(((User)Request.HttpContext.Items["User"]), model));
     }
 
     [HttpDelete()]
@@ -55,13 +55,13 @@ public class TasksController : ControllerBase
     }
 
     [HttpGet("{boardId}/{taskId}")]
-    public async Task<IActionResult> GetById(string boardId, string taskId)
+    public async Task<IActionResult> GetById(string boardId, string taskId, [FromQuery] string sortBy = "")
     {
         return Ok(await _taskService.GetById(boardId, taskId));
     }
 
     [HttpGet("{boardId}")]
-    public async Task<IActionResult> GetAll(string boardId)
+    public async Task<IActionResult> GetAll(string boardId, [FromQuery]string sortBy = "")
     {
         return Ok(await _taskService.GetAll(boardId));
     }

@@ -14,6 +14,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet.MiniJira.Application", "Dotnet.MiniJira.Application\Dotnet.MiniJira.Application.csproj", "{1F90928B-F749-4B48-A523-B1975AD00D8E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker files", "Docker files", "{CDAC6909-190F-49AA-806F-F959E15E45FB}"
+	ProjectSection(SolutionItems) = preProject
+		Dotnet.MiniJira.API\Dockerfile = Dotnet.MiniJira.API\Dockerfile
+		Mongo-docker-compose.yml = Mongo-docker-compose.yml
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet.MiniJira.API", "Dotnet.MiniJira.API\Dotnet.MiniJira.API.csproj", "{B1011620-680D-44FC-A1DF-9519DFC762CE}"
 EndProject
@@ -21,6 +25,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{BA694F59-F
 	ProjectSection(SolutionItems) = preProject
 		..\Net Core Developer Assessment.docx = ..\Net Core Developer Assessment.docx
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. API", "1. API", "{806E88D6-F7A9-4CFC-9EFA-172ED34A1AA0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Domain", "2. Domain", "{59104951-F3BC-4D2E-8A7B-3DDFD80F320E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Infra & App", "3. Infra & App", "{D7624019-D92E-436C-AA91-1799A2569372}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. WebSocket Live Notifications", "4. WebSocket Live Notifications", "{CFD17F68-4F23-4793-B6E2-AF6E37DC2956}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet.MiniJira.Notification.Client", "Dotnet.MiniJira.Notification.Client\Dotnet.MiniJira.Notification.Client.csproj", "{58279321-8E33-4B3C-84A7-9E140BAC8746}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,12 +62,21 @@ Global
 		{B1011620-680D-44FC-A1DF-9519DFC762CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1011620-680D-44FC-A1DF-9519DFC762CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1011620-680D-44FC-A1DF-9519DFC762CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58279321-8E33-4B3C-84A7-9E140BAC8746}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58279321-8E33-4B3C-84A7-9E140BAC8746}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58279321-8E33-4B3C-84A7-9E140BAC8746}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58279321-8E33-4B3C-84A7-9E140BAC8746}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{0D6DDC79-4CB8-41C6-8532-F72AE9238B5E} = {59104951-F3BC-4D2E-8A7B-3DDFD80F320E}
+		{E03BF33D-253A-4CFC-B244-0D40D3FD78FE} = {D7624019-D92E-436C-AA91-1799A2569372}
 		{D9841BD1-026F-4F58-8336-4C358F95F810} = {D3E038BB-5539-428B-92DA-FB1CB46341BA}
+		{1F90928B-F749-4B48-A523-B1975AD00D8E} = {D7624019-D92E-436C-AA91-1799A2569372}
+		{B1011620-680D-44FC-A1DF-9519DFC762CE} = {806E88D6-F7A9-4CFC-9EFA-172ED34A1AA0}
+		{58279321-8E33-4B3C-84A7-9E140BAC8746} = {CFD17F68-4F23-4793-B6E2-AF6E37DC2956}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BD9BB5B7-13E6-4EE6-8387-A03B3C5C7E8A}

@@ -6,6 +6,8 @@ builder.Services.ConfigureServer(builder);
 
 var app = builder.Build();
 
-app.ConfigureApp();
+app.ConfigureApp(builder.Configuration);
+
+app.UseWebSockets();
 
 await app.RunAsync();

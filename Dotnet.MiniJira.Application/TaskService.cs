@@ -2,6 +2,7 @@
 
 using Dotnet.MiniJira.Application.Interface;
 using Dotnet.MiniJira.Domain.Entities;
+using Dotnet.MiniJira.Domain.Helpers;
 using Dotnet.MiniJira.Domain.Models.Board;
 using Dotnet.MiniJira.Infrastructure;
 using Microsoft.Extensions.Logging;
@@ -13,18 +14,21 @@ public class TaskService : ITaskService
     private readonly ILogger<UserService> _logger;
     private readonly IBoardService _boardService;
     private readonly IUserService _userService;
+    private readonly IBroadcasterService _broadcasterService;
     private readonly IMongoBaseRepository<Board> _boardRepository;
 
     public TaskService(
         ILogger<UserService> logger,
         IBoardService boardService,
         IUserService userService,
-        IMongoBaseRepository<Board> boardRepository)
+        IMongoBaseRepository<Board> boardRepository,
+        IBroadcasterService broadcasterService)
     {
         _logger = logger;
         _boardService = boardService;
         _userService = userService;
         _boardRepository = boardRepository;
+        _broadcasterService = broadcasterService;
     }
 
     public async Task<Task> AddAttachments(AddAttachmentRequest model)
@@ -45,6 +49,9 @@ public class TaskService : ITaskService
         itemToUpdate.Attachments.AddRange(model.Attachments);
 
         await _boardRepository.UpdateAsync(board, new CancellationToken());
+
+        var message = $"New attachments were inserted in the task '{itemToUpdate.Name}'";
+        await _broadcasterService.BroadcastEvent(message);
 
         return item;
     }
@@ -75,10 +82,13 @@ public class TaskService : ITaskService
 
         await _boardRepository.UpdateAsync(board, new CancellationToken());
 
+        var message = $"The task '{itemToUpdate.Name}' was assigned to the user '{user.Name}'";
+        await _broadcasterService.BroadcastEvent(message);
+
         return itemToUpdate;
     }
 
-    public async Task<Board> CreateTask(string userId, CreateTaskRequest model)
+    public async Task<Board> CreateTask(User user, CreateTaskRequest model)
     {
         if (string.IsNullOrEmpty(model.BoardId))
             throw new KeyNotFoundException($"Board {model.BoardId} not found");
@@ -109,7 +119,7 @@ public class TaskService : ITaskService
 
         var newTask = new Task(model.Task.Name,
                        model.Task.Description,
-                       userId, model.Task.DeadLine,
+                       user.Id, model.Task.DeadLine,
                        model.Task.IsFavorite);
 
         boardColumn.Tasks.Add(newTask);
@@ -117,6 +127,9 @@ public class TaskService : ITaskService
         board.Columns[indexOfColumnToUse].Tasks = boardColumn.Tasks;
 
         await _boardRepository.UpdateAsync(board, new CancellationToken());
+
+        var message = $"A new task '{newTask.Name}' was inserted in the column '{columnToUse.Name}' to the board '{board.Name}'";
+        await _broadcasterService.BroadcastEvent(message);
 
         return board;
     }
@@ -160,6 +173,9 @@ public class TaskService : ITaskService
 
         await _boardRepository.UpdateAsync(board, new CancellationToken());
 
+        var message = $"The task '{itemToUpdate.Name}' was just updated'";
+        await _broadcasterService.BroadcastEvent(message);
+
         return itemToUpdate;
     }
 
@@ -182,24 +198,10 @@ public class TaskService : ITaskService
 
         await _boardRepository.UpdateAsync(board, new CancellationToken());
 
+        var message = $"Task deleted: '{currentTask.Name}', column '{currentColumn.Name}', board '{board.Name}'";
+        await _broadcasterService.BroadcastEvent(message);
+
         return board;
-    }
-
-    public async Task<List<Task>> GetAll(string boardId)
-    {
-        var board = await _boardService.GetById(boardId);
-
-        var allTasks = new List<Task>();
-        board.Columns.ForEach(item => item.Tasks?.ForEach(tsk => allTasks.Add(tsk)));
-
-        return allTasks;
-    }
-
-    public async Task<Task> GetById(string boardId, string taskId)
-    {
-        var board = await _boardService.GetById(boardId);
-
-        return await FindTaskInBoard(board, taskId);
     }
 
     public async Task<Board> MoveTask(MoveTaskRequest model)
@@ -224,7 +226,34 @@ public class TaskService : ITaskService
 
         await _boardRepository.UpdateAsync(board, new CancellationToken());
 
+        var message = $"Task '{task.Name}' moved from column '{oldTaskColumn.Name}' to the column '{newTaskColumn.Name}', board '{board.Name}'";
+        await _broadcasterService.BroadcastEvent(message);
+
         return board;
+    }
+
+    public async Task<List<Task>> GetAll(string boardId, string sortBy)
+    {
+        var board = await _boardService.GetById(boardId);
+
+        var sortConfig = new { Sort = sortBy.Split(' ')[0], Order = sortBy.Split(' ')[1].ToUpper() ?? "ASC" };
+
+        var allTasks = new List<Task>();
+        board.Columns.ForEach(item => item.Tasks?.ForEach(tsk => allTasks.Add(tsk)));
+
+        if (string.IsNullOrEmpty(sortBy))
+            return allTasks;
+
+        allTasks = allTasks.CustomSort(sortConfig.Sort, sortConfig.Order == "DESC");
+
+        return allTasks;
+    }
+
+    public async Task<Task> GetById(string boardId, string taskId)
+    {
+        var board = await _boardService.GetById(boardId);
+
+        return await FindTaskInBoard(board, taskId);
     }
 
     private async Task<Task> FindTaskInBoard(Board board, string taskId)

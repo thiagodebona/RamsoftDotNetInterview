@@ -21,13 +21,7 @@ public class BoardController : ControllerBase
     [HttpPost()]
     public async Task<IActionResult> CreateBoard(CreateBoardRequest model)
     {
-        var userId = (User)Request.HttpContext.Items["User"];
-        if (userId.Profile != Dotnet.MiniJira.Domain.Enums.User.UserProfile.ADMIN)
-        {
-            throw new Exception("Only admin profiles can create new boards");
-        }
-
-        var board = await _boardService.CreateBoard(userId.Id, model);
+        var board = await _boardService.CreateBoard((User)Request.HttpContext.Items["User"], model);
 
         return Ok(board);
     }
@@ -35,27 +29,15 @@ public class BoardController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteBoard(string id)
     {
-        var userId = (User)Request.HttpContext.Items["User"];
-        if (userId.Profile != Dotnet.MiniJira.Domain.Enums.User.UserProfile.ADMIN)
-        {
-            throw new Exception("Only admin profiles can delete new boards");
-        }
-
-        await _boardService.DeleteBoard(id);
+        await _boardService.DeleteBoard((User)Request.HttpContext.Items["User"], id);
 
         return Ok();
     }
 
     [HttpPut()]
-    public async Task<IActionResult> UpdateBoard([FromBody]UpdateBoardRequest model)
+    public async Task<IActionResult> UpdateBoard([FromBody] UpdateBoardRequest model)
     {
-        var userId = (User)Request.HttpContext.Items["User"];
-        if (userId.Profile != Dotnet.MiniJira.Domain.Enums.User.UserProfile.ADMIN)
-        {
-            throw new Exception("Only admin profiles can update boards");
-        }
-
-        var resultUpdate = await _boardService.UpdateBoard(userId.Id, model);
+        var resultUpdate = await _boardService.UpdateBoard((User)Request.HttpContext.Items["User"], model);
 
         return Ok(resultUpdate);
     }
@@ -83,9 +65,9 @@ public class BoardController : ControllerBase
     }
 
     [HttpGet()]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll(string sortBy = "Name desc")
     {
-        var boards = await _boardService.GetAll();
+        var boards = await _boardService.GetAll(sortBy);
 
         return Ok(boards);
     }

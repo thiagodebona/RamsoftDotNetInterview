@@ -8,6 +8,5 @@ public class AppSettings
     // automatically deleted from the database after this time
     public int RefreshTokenTTL { get; set; }
 
-    public string NotificationServer { get; set; }
     public string ServerUrl { get; set; }
 }

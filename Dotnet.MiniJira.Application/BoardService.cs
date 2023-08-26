@@ -14,17 +14,25 @@ public class BoardService : IBoardService
 {
     private readonly ILogger<UserService> _logger;
     private readonly IMongoBaseRepository<Board> _boardRepository;
+    private readonly IBroadcasterService _broadcasterService;
 
     public BoardService(
         ILogger<UserService> logger,
-        IMongoBaseRepository<Board> boardRepository)
+        IMongoBaseRepository<Board> boardRepository,
+        IBroadcasterService broadcasterService)
     {
         _logger = logger;
         _boardRepository = boardRepository;
+        _broadcasterService = broadcasterService;
     }
 
-    public async Task<Board> CreateBoard(string userId, CreateBoardRequest model)
+    public async Task<Board> CreateBoard(User user, CreateBoardRequest model)
     {
+        if (user.Profile != Domain.Enums.User.UserProfile.ADMIN)
+        {
+            throw new Exception("Only admin profiles can create new boards");
+        }
+
         var board = (await _boardRepository.FindBy(x => x.Name == model.Name, new CancellationToken())).FirstOrDefault();
 
         if (board == null)
@@ -33,7 +41,7 @@ public class BoardService : IBoardService
             {
                 Name = model.Name,
                 Description = model.Description,
-                UserCreated = userId,
+                UserCreated = user.Id,
                 Columns = new List<BoardColumns>
                 {
                    new BoardColumns {
@@ -67,36 +75,56 @@ public class BoardService : IBoardService
 
             await _boardRepository.AddAsync(boardToAdd, new CancellationToken());
 
+            await _broadcasterService.BroadcastEvent($"A new board has just been created: {boardToAdd.Name}");
+
             return await _boardRepository.GetByIdAsync(boardToAdd.Id, new CancellationToken());
         }
 
         throw new AppException("Board with the same name is already registered");
     }
 
-    public async Task<bool> DeleteBoard(string boardId)
+    public async Task<bool> DeleteBoard(User user, string boardId)
     {
+        if (user.Profile != Domain.Enums.User.UserProfile.ADMIN)
+        {
+            throw new Exception("Only admin profiles can create new boards");
+        }
+
         var board = (await _boardRepository.FindBy(x => x.Id == boardId, new CancellationToken())).FirstOrDefault();
 
         if (board == null) throw new KeyNotFoundException($"Board {boardId} not found");
 
         await _boardRepository.DeleteAsync(boardId, new CancellationToken());
 
+        await _broadcasterService.BroadcastEvent($"Board '{board.Name}' has just been deleted");
+
         return true;
     }
 
-    public async Task<Board> UpdateBoard(string userId, UpdateBoardRequest model)
+    public async Task<Board> UpdateBoard(User user, UpdateBoardRequest model)
     {
+        if (user.Profile != Domain.Enums.User.UserProfile.ADMIN)
+        {
+            throw new Exception("Only admin profiles can create new boards");
+        }
+
         var board = (await _boardRepository.FindBy(x => x.Id == model.BoardId.ToString(), new CancellationToken())).FirstOrDefault();
         if (board == null)
             throw new KeyNotFoundException($"Board {model.BoardId} not found");
 
-        if (!string.IsNullOrEmpty(model.Name) || !string.IsNullOrEmpty(model.Description))
+        if (string.IsNullOrEmpty(model.Name) || string.IsNullOrEmpty(model.Description))
             throw new KeyNotFoundException($"You need to inform at least name or description");
 
+        var oldname = board.Name;
+        var oldDesc = board.Description;
         board.Name = !string.IsNullOrEmpty(model.Name) ? model.Name : board.Name;
         board.Description = !string.IsNullOrEmpty(model.Description) ? model.Description : board.Description;
 
+        var message = $"Board name updated from -> '{oldname}', to '{board.Name}', and description from '{oldDesc}', to '{board.Name}'";
+        await _broadcasterService.BroadcastEvent(message);
+
         await _boardRepository.UpdateAsync(board, new CancellationToken());
+
 
         return board;
     }
@@ -117,6 +145,9 @@ public class BoardService : IBoardService
 
         // Update the db record
         await _boardRepository.UpdateAsync(board, new CancellationToken());
+
+        var message = $"New column '{model.Column.Name}' created in the board {board.Name}!";
+        await _broadcasterService.BroadcastEvent(message);
 
         return board;
     }
@@ -143,18 +174,32 @@ public class BoardService : IBoardService
         // Update the db record
         await _boardRepository.UpdateAsync(board, new CancellationToken());
 
+        var message = $"Deleted column '{columnToRemove.Name}' from the board {board.Name}!";
+        await _broadcasterService.BroadcastEvent(message);
+
         return board;
     }
 
-    public async Task<Board> GetById(string id)
+    public async Task<Board> GetById(string id, string sortBy)
     {
         var board = (await _boardRepository.FindBy(x => x.Id == id.ToString(), new CancellationToken())).FirstOrDefault();
         if (board == null) throw new KeyNotFoundException($"Board {id} not found");
         return board;
     }
 
-    public async Task<List<Board>> GetAll()
+    public async Task<List<Board>> GetAll(string sortBy)
     {
-        return await _boardRepository.FindAsync(new CancellationToken());
+        var result = await _boardRepository.FindAsync(new CancellationToken());
+
+        if (string.IsNullOrEmpty(sortBy))
+            return result;
+
+        var sortConfig = new { Sort = sortBy.Split(' ')[0], Order = sortBy.Split(' ')[1].ToUpper() ?? "ASC" };
+
+        foreach (Board board in result)
+            foreach (var column in board.Columns)
+                column.Tasks = column.Tasks?.CustomSort(sortConfig.Sort, sortConfig.Order == "DESC");
+
+        return result;
     }
 }
