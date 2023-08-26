@@ -15,8 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet.MiniJira.Application
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker files", "Docker files", "{CDAC6909-190F-49AA-806F-F959E15E45FB}"
 	ProjectSection(SolutionItems) = preProject
-		Dotnet.MiniJira.API\Dockerfile = Dotnet.MiniJira.API\Dockerfile
+		Dockerfile = Dockerfile
 		Mongo-docker-compose.yml = Mongo-docker-compose.yml
+		Readme.md = Readme.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet.MiniJira.API", "Dotnet.MiniJira.API\Dotnet.MiniJira.API.csproj", "{B1011620-680D-44FC-A1DF-9519DFC762CE}"
@@ -34,7 +35,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Infra & App", "3. Infra 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. WebSocket Live Notifications", "4. WebSocket Live Notifications", "{CFD17F68-4F23-4793-B6E2-AF6E37DC2956}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet.MiniJira.Notification.Client", "Dotnet.MiniJira.Notification.Client\Dotnet.MiniJira.Notification.Client.csproj", "{58279321-8E33-4B3C-84A7-9E140BAC8746}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet.MiniJira.Notification.Client", "Dotnet.MiniJira.Notification.Client\Dotnet.MiniJira.Notification.Client.csproj", "{58279321-8E33-4B3C-84A7-9E140BAC8746}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,30 +1,31 @@
 version: '3.9'
 
-services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: app
-    container_name: app
-    restart: unless-stopped
-    env_file: .env
-    ports:
-      - '$PORT:$PORT'
 
+services:
   mongo:
     image: mongo:6.0.3
     container_name: mongo
     restart: unless-stopped
-    env_file: .env
     environment:
       - MONGO_INITDB_ROOT_USERNAME=super_admin
       - MONGO_INITDB_ROOT_PASSWORD=admin123
       - MONGO_INITDB_DATABASE=MiniJira
-    ports:
-      - '27017'
     volumes:
       - dbdata:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      mongo_net:
+        ipv4_address: 172.16.0.1
+    command: mongod --bind_ip 127.0.0.1,172.16.0.1
+
+networks:
+  mongo_net:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 172.16.0.0/24
+        gateway: 172.16.0.254
 
 volumes:
   dbdata:

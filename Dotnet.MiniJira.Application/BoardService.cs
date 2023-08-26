@@ -120,7 +120,7 @@ public class BoardService : IBoardService
         board.Name = !string.IsNullOrEmpty(model.Name) ? model.Name : board.Name;
         board.Description = !string.IsNullOrEmpty(model.Description) ? model.Description : board.Description;
 
-        var message = $"Board name updated from -> '{oldname}', to '{board.Name}', and description from '{oldDesc}', to '{board.Name}'";
+        var message = $"Board name updated from -> '{oldname}', to '{board.Name}', and description from '{oldDesc}', to '{board.Description}'";
         await _broadcasterService.BroadcastEvent(message);
 
         await _boardRepository.UpdateAsync(board, new CancellationToken());
