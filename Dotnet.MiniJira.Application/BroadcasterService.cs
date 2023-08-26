@@ -19,7 +19,7 @@ public class BroadcasterService : IBroadcasterService
 
     public async Task<bool> BroadcastEvent(string message)
     {
-        await new HttpClient().PostAsync($"{_appSettings.ServerUrl}/ws/notify", new StringContent(message, Encoding.UTF8, "application/json"));
+        await new HttpClient().PostAsync($"{_appSettings.ServerUrl}/ws/notify", new StringContent(message, Encoding.UTF8, "application/json"), new CancellationToken());
 
         _logger.LogInformation($"    -> Message brodcasted: {message}");
 
