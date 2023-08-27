@@ -4,11 +4,13 @@ using Dotnet.MiniJira.Domain.Core;
 
 public class Task : Entity
 {
+
     public Task()
     {
+
     }
 
-    public Task(string name, string description, string idUserCreated, DateTime deadLine, bool isFavorite, string assignee = "")
+    public Task(string name, string description, string idUserCreated, DateTime deadLine, bool isFavorite, User assignee)
     {
         Name = name;
         Description = description;
@@ -21,8 +23,10 @@ public class Task : Entity
     public string Name { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public string UserCreated { get; set; } = string.Empty;
+    public DateTime DateCreate { get; set; } = DateTime.Now;
+    public DateTime? DateUpdate { get; set; }
     public bool IsFavorite { get; set; }
-    public string Assignee { get; set; } = string.Empty;
+    public User Assignee { get; set; }
     /// <summary>
     /// List of base64 images
     /// </summary>

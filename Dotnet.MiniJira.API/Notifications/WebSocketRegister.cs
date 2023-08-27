@@ -1,8 +1,10 @@
 ﻿using Dotnet.MiniJira.Application.Interface;
+using Dotnet.MiniJira.Domain.Models.Broadcaster;
 using Dotnet.MiniJira.Domain.Models.Users;
 using System.Net;
 using System.Net.WebSockets;
 using System.Text;
+using System.Text.Json;
 
 namespace Dotnet.MiniJira.API.Notifications;
 
@@ -15,13 +17,15 @@ public interface IWebSocketRegister
 public class WebSocketRegister : IWebSocketRegister
 {
     private IUserService _userService;
+    private IBoardService _boardService;
     private ILogger<WebSocketRegister> _logger;
 
     public List<Tuple<WebSocket, AuthenticateResponse>> connections = new List<Tuple<WebSocket, AuthenticateResponse>>();
 
-    public WebSocketRegister(IUserService userService, ILogger<WebSocketRegister> logger)
+    public WebSocketRegister(IUserService userService, IBoardService boardService, ILogger<WebSocketRegister> logger)
     {
         _userService = userService;
+        _boardService = boardService;
         _logger = logger;
     }
 
@@ -46,6 +50,11 @@ public class WebSocketRegister : IWebSocketRegister
 
                     var userInfo = new Tuple<WebSocket, AuthenticateResponse>(ws, login);
                     connections.Add(userInfo);
+
+                    await Broadcast(JsonSerializer.Serialize(new BroadCasterMessageModel {
+                         Data = await _boardService.GetAll(),
+                         Message = $"Welcome to MiniJira App - Connection started at {DateTime.Now:MM/dd/yyyy h:mm tt}"
+                    }));
 
                     await ReceiveMessage(ws, async (result, buffer) =>
                     {

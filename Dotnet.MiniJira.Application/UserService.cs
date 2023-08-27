@@ -51,8 +51,7 @@ public class UserService : IUserService
 
         await _broadcasterService.BroadcastEvent(new BroadCasterMessageModel
         {
-            Message = $"User '{user.Name}', username '{user.Username}' has just logged in at {DateTime.Now.ToUniversalTime()}'",
-            Data = (await _boardService.GetAll()).FirstOrDefault()
+            Message = $"{DateTime.Now.ToUniversalTime()} -> {user.Name}' has just connected",
         });
 
         return new AuthenticateResponse(user, jwtToken, refreshToken.Token);

@@ -54,7 +54,7 @@ public class TaskService : ITaskService
         await _broadcasterService.BroadcastEvent(new BroadCasterMessageModel
         {
             Message = $"New attachments were inserted in the task '{itemToUpdate.Name}'",
-            Data = board
+            Data = new List<Board> { board }
         });
 
         return item;
@@ -75,21 +75,21 @@ public class TaskService : ITaskService
 
         var currentTask = currentColumn?.Tasks?.FirstOrDefault(x => x.Id == model.TaskId);
 
-        var indexToUpdate = currentColumn.Tasks?.IndexOf(currentTask);
+        var indexToUpdate = currentColumn?.Tasks?.IndexOf(currentTask);
 
         var itemToUpdate = board.Columns.ElementAt(board.Columns.IndexOf(boardColumn))?.Tasks?.ElementAt(indexToUpdate.Value);
 
-        if (itemToUpdate.Assignee == user.Id)
+        if (itemToUpdate?.Assignee == user)
             throw new Exception($"This task is already assigned to user {user.Name}");
 
-        itemToUpdate.Assignee = user.Id;
+        itemToUpdate.Assignee = user;
 
         await _boardRepository.UpdateAsync(board, new CancellationToken());
 
         await _broadcasterService.BroadcastEvent(new BroadCasterMessageModel
         {
             Message = $"The task '{itemToUpdate.Name}' was assigned to the user '{user.Name}'",
-            Data = board
+            Data = new List<Board> { board }
         });
 
         return itemToUpdate;
@@ -124,10 +124,7 @@ public class TaskService : ITaskService
         if (boardColumn.Tasks == null || !boardColumn.Tasks.Any())
             boardColumn.Tasks = new List<Task>();
 
-        var newTask = new Task(model.Task.Name,
-                       model.Task.Description,
-                       user.Id, model.Task.DeadLine,
-                       model.Task.IsFavorite);
+        var newTask = new Task(model.Task.Name, model.Task.Description, user.Id, model.Task.DeadLine,model.Task.IsFavorite, user);
 
         boardColumn.Tasks.Add(newTask);
 
@@ -138,7 +135,7 @@ public class TaskService : ITaskService
         await _broadcasterService.BroadcastEvent(new BroadCasterMessageModel
         {
             Message = $"A new task '{newTask.Name}' was inserted in the column '{columnToUse.Name}' to the board '{board.Name}'",
-            Data = board
+            Data = new List<Board> { board }
         });
 
         return board;
@@ -181,12 +178,14 @@ public class TaskService : ITaskService
         if (model.Task.IsFavorite.HasValue && itemToUpdate.IsFavorite != model.Task.IsFavorite)
             itemToUpdate.IsFavorite = model.Task.IsFavorite.Value;
 
+        itemToUpdate.DateUpdate = DateTime.Now;
+
         await _boardRepository.UpdateAsync(board, new CancellationToken());
 
         await _broadcasterService.BroadcastEvent(new BroadCasterMessageModel
         {
             Message = $"The task '{itemToUpdate.Name}' was just updated'",
-            Data = board
+            Data = new List<Board> { board }
         });
 
         return itemToUpdate;
@@ -214,7 +213,7 @@ public class TaskService : ITaskService
         await _broadcasterService.BroadcastEvent(new BroadCasterMessageModel
         {
             Message = $"Task deleted: '{currentTask.Name}', column '{currentColumn.Name}', board '{board.Name}'",
-            Data = board
+            Data = new List<Board> { board }
         });
 
         return board;
@@ -245,7 +244,7 @@ public class TaskService : ITaskService
         await _broadcasterService.BroadcastEvent(new BroadCasterMessageModel
         {
             Message = $"Task '{task.Name}' moved from column '{oldTaskColumn.Name}' to the column '{newTaskColumn.Name}', board '{board.Name}'",
-            Data = board
+            Data = new List<Board> { board }
         });
 
         return board;

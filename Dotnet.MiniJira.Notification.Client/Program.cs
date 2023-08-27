@@ -1,9 +1,8 @@
-﻿using Dotnet.MiniJira.Domain.Entities;
-using Dotnet.MiniJira.Domain.Models.Broadcaster;
-using Dotnet.MiniJira.Notification.Client;
-using System.Net.WebSockets;
+﻿using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
+using Dotnet.MiniJira.Domain.Models.Broadcaster;
+using Dotnet.MiniJira.Notification.Client;
 
 var ws = new ClientWebSocket();
 
@@ -18,12 +17,10 @@ while (true)
     break;
 }
 
-
-Console.WriteLine("Connecting to server");
 await ws.ConnectAsync(new Uri($"ws://localhost:7100/ws?username={username}&password={password}"), CancellationToken.None);
-Console.WriteLine("Successfuly connected!");
+Console.WriteLine($"{DateTime.Now} Successfuly connected!");
 
-var receiveTask = System.Threading.Tasks.Task.Run(async () =>
+var receiveTask = Task.Run(async () =>
 {
     var buffer = new byte[1024 * 4];
     while (true)
@@ -41,14 +38,14 @@ var receiveTask = System.Threading.Tasks.Task.Run(async () =>
             Console.WriteLine($"{DateTime.Now.ToUniversalTime()} -> {notification.Message}");
         else
         {
-            Console.WriteLine($"{DateTime.Now.ToUniversalTime()} -> New board update {notification.Message}");
-            Console.WriteLine(new TableCreatorHelper().CreateTable(new List<Board> { notification.Data }));
+            Console.WriteLine($"{DateTime.Now.ToUniversalTime()} -> {notification.Message}");
+            Console.WriteLine(new TableCreatorHelper().CreateTable(notification.Data));
         }
     }
 });
 
 
-await System.Threading.Tasks.Task.WhenAll(receiveTask);
+await Task.WhenAll(receiveTask);
 
 if (ws.State != WebSocketState.Closed)
 {

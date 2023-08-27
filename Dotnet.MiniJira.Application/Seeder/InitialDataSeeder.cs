@@ -68,7 +68,7 @@ namespace Dotnet.MiniJira.Application.Seeder
                 {
                     Name = "Ramsoft - Issues board",
                     Description = "All the issues goes to this board",
-                    UserCreated = adminToAdd.Id,
+                    UserCreated = adminToAdd,
                     Columns = new List<BoardColumns> {
                        new BoardColumns {
                            Name = "Todo",
@@ -76,7 +76,7 @@ namespace Dotnet.MiniJira.Application.Seeder
                            Type = ColumnType.todo,
                            Tasks = new List<Domain.Entities.Task>() {
                                 new Domain.Entities.Task {
-                                    Assignee = devToAdd.Id,
+                                    Assignee = devToAdd,
                                     DeadLine = DateTime.Now.AddDays(7),
                                     Name = "Issue on billing module",
                                     UserCreated = adminToAdd.Id,
@@ -91,7 +91,7 @@ namespace Dotnet.MiniJira.Application.Seeder
                            Type = ColumnType.InProgress,
                            Tasks = new List<Domain.Entities.Task>() {
                                 new Domain.Entities.Task {
-                                    Assignee = devToAdd.Id,
+                                    Assignee = devToAdd,
                                     DeadLine = DateTime.Now.AddDays(7),
                                     Name = "Problem when converting EURO to DOLAR",
                                     UserCreated = adminToAdd.Id,
@@ -107,7 +107,7 @@ namespace Dotnet.MiniJira.Application.Seeder
 
                            Tasks = new List<Domain.Entities.Task>() {
                                 new Domain.Entities.Task {
-                                    Assignee = testToAdd.Id,
+                                    Assignee = testToAdd,
                                     DeadLine = DateTime.Now.AddDays(7),
                                     Name = "Problem when converting EURO to DOLAR",
                                     UserCreated = adminToAdd.Id,
@@ -115,7 +115,7 @@ namespace Dotnet.MiniJira.Application.Seeder
                                     Description = "The billing scheen is responding wrong currency conversions"
                                 },
                                 new Domain.Entities.Task {
-                                    Assignee = testToAdd.Id,
+                                    Assignee = testToAdd,
                                     DeadLine = DateTime.Now.AddDays(7),
                                     Name = "Problem when converting BRL to canadian dolar",
                                     UserCreated = testToAdd.Id,
@@ -130,7 +130,7 @@ namespace Dotnet.MiniJira.Application.Seeder
                            Type = ColumnType.Done,
                            Tasks = new List<Domain.Entities.Task>() {
                                 new Domain.Entities.Task {
-                                    Assignee = testToAdd.Id,
+                                    Assignee = testToAdd,
                                     DeadLine = DateTime.Now.AddDays(7),
                                     Name = "Docker image not building",
                                     UserCreated = adminToAdd.Id,
