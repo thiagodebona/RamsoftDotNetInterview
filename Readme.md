@@ -16,6 +16,8 @@ Used technologies:
   - Docker desktop for windows
   - MongoDBCompass
   
+ The project includes all the DockerFiles to run the MiniJira.
+  
 Including ->   Simple console application to see the MiniJira tasks and board at **live**
 
 # MiniJira 1.0 Features
@@ -45,6 +47,7 @@ Including ->   Simple console application to see the MiniJira tasks and board at
 	> Between folder 1. and 4. we find all the required project to run the **MiniJira** sub-menu.
 	
 	> **Docker files** folder has the dockerfile to instance a new MongoDB in your local docker container
+    > **Docker files** for the Dotnet.MiniJira.API is localted in the Dotnet.MiniJira.API/Dockerfile
 	
     > **Tests** folder contains all mocked tests to keep integrity in the source code
 - Secondary projects
