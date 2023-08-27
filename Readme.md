@@ -1,7 +1,7 @@
 # Welcome to MiniJira App!
 ## Created from scratch, took 23 hours to build it. Including this documentation
 
-Simple .Net Core 6 App tasks manager  **application** meant to be sent to **Ramsoft DotNet interview** for **Thiago Vendrame de Bona**
+Simple .Net Core 6 App tasks manager  **application** meant to be sent to **Ramsoft DotNet interview** for **Thiago**
 
 Used technologies:
  - Fully **RESTfull asyncronous** back-end
@@ -161,9 +161,9 @@ Now we can see in the client that a new task was inserted in the board in the co
 
 |    route|action|admin|develop|tester
 |----------------|-----------|----------|-------|-------
-|/Board|POST|true|false| false
-|/Board|PUT|true|false| false|
-|/Board|GET|true|true| true|
+|/Board/|POST|true|false| false
+|/Board/|PUT|true|false| false|
+|/Board/|GET|true|true| true|
 |/Board/{id}|DELETE|true|false| false|
 |/Board/{id}|GET|true|true| true|
 |/Board/DeleteColumn|DELETE|true|true| true|
