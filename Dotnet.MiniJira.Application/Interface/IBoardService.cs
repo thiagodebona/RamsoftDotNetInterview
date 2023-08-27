@@ -8,8 +8,8 @@ public interface IBoardService
     public Task<Board> CreateBoard(User user, CreateBoardRequest model);
     public Task<bool> DeleteBoard(User user, string boardId);
     public Task<Board> UpdateBoard(User user, UpdateBoardRequest model);
-    public Task<Board> GetById(string id, string sortBy = "");
-    public Task<List<Board>> GetAll(string sortBy = "");
+    public Task<Board> GetById(string id, string sortBy = "Name ASC");
+    public Task<List<Board>> GetAll(string sortBy = "Name ASC");
     public Task<Board> CreateColum(CreateBoardColumnRequest model);
     public Task<Board> DeleteColum(DeleteBoardColumnRequest model);
 }

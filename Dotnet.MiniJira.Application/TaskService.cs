@@ -236,15 +236,16 @@ public class TaskService : ITaskService
     {
         var board = await _boardService.GetById(boardId);
 
-        var sortConfig = new { Sort = sortBy.Split(' ')[0], Order = sortBy.Split(' ')[1].ToUpper() ?? "ASC" };
-
         var allTasks = new List<Task>();
         board.Columns.ForEach(item => item.Tasks?.ForEach(tsk => allTasks.Add(tsk)));
 
         if (string.IsNullOrEmpty(sortBy))
             return allTasks;
 
-        allTasks = allTasks.CustomSort(sortConfig.Sort, sortConfig.Order == "DESC");
+        var sortConfig = new { Sort = sortBy.Split(' ')[0], Order = sortBy.Split(' ')[1].ToUpper() ?? "ASC" };
+
+        // Favorites records are in the top of the list
+        allTasks = allTasks.CustomSortBy(sortConfig.Sort, sortConfig.Order == "DESC", "IsFavorite");
 
         return allTasks;
     }

@@ -65,7 +65,7 @@ public class BoardController : ControllerBase
     }
 
     [HttpGet()]
-    public async Task<IActionResult> GetAll(string sortBy = "Name desc")
+    public async Task<IActionResult> GetAll(string sortBy = "Name ASC")
     {
         var boards = await _boardService.GetAll(sortBy);
 

@@ -184,6 +184,17 @@ public class BoardService : IBoardService
     {
         var board = (await _boardRepository.FindBy(x => x.Id == id.ToString(), new CancellationToken())).FirstOrDefault();
         if (board == null) throw new KeyNotFoundException($"Board {id} not found");
+
+        if (string.IsNullOrEmpty(sortBy))
+            return board;
+
+        var sortConfig = new { Sort = sortBy.Split(' ')[0], Order = sortBy.Split(' ')[1].ToUpper() ?? "ASC" };
+
+        board.Columns.ForEach(board =>
+        {
+            board.Tasks = board.Tasks?.CustomSortBy(sortConfig.Sort, sortConfig.Order == "DESC", "IsFavorite");
+        });
+
         return board;
     }
 
@@ -198,7 +209,7 @@ public class BoardService : IBoardService
 
         foreach (Board board in result)
             foreach (var column in board.Columns)
-                column.Tasks = column.Tasks?.CustomSort(sortConfig.Sort, sortConfig.Order == "DESC");
+                column.Tasks = column.Tasks?.CustomSortBy(sortConfig.Sort, sortConfig.Order == "DESC", "IsFavorite");
 
         return result;
     }

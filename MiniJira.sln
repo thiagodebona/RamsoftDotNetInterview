@@ -25,6 +25,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{BA694F59-F481-487D-B551-E03225F88763}"
 	ProjectSection(SolutionItems) = preProject
 		..\Net Core Developer Assessment.docx = ..\Net Core Developer Assessment.docx
+		Readme.md = Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. API", "1. API", "{806E88D6-F7A9-4CFC-9EFA-172ED34A1AA0}"
