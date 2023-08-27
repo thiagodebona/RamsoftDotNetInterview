@@ -166,6 +166,7 @@ Now we can see in the client that a new task was inserted in the board in the co
 |/Board/DeleteColumn|DELETE|true|true| true|
 |/Board/CreateColumn|GET|true|true| true|
 
+![image info](./assets/1a.png)
 ![User business rules](https://lh3.googleusercontent.com/pw/AIL4fc-LSzCNo45toauovcaF6nGl9xNVItygnR0efJLeO4YcKljshiGiq0o6Da3Sjkp5bc376C68rAgm8T4Z67tfB_PvzzZuuvwLeGeM_9v--J02WjpceLainjYy4S5vUTB61H4J5i9icOLoQTImRR_maGPQMV1XjNFaGslUM4_IMdJ3nU2G-unlCVM_bgW1Y7fw3dPzdxIeWNRbnEIO56AH2eBqHlxsJEV0vOkcSVlqTQY5XN0Sq47OFIcfLbLodlrVD65f6iR6gs-UYyjNJQe1-rWIwlbtNeil7zjsZW1Z6VZYolV2LrjZreeLwEMBHASAwMpDYzuqhnkKCoegpGfk_vFiQmxmmadgQTZqawWaFZHs6S78clsuPRhNgahlChBoV4_UEoy-floW_GKOeF9O0H0dCBnsOGUvYuQPHcacKLn3iImEaQySnw9CQ6jFoPadw2tLaGqIWYp4IRtweuQAJltzirh-7KG6gOwt4yVmRFnK5QIB09ayPSOGM8LbhliYG4Jn7-8r2yEcCNjXG__MKTlYvuZbujd4NrtIXDEA9p6czcP0dpixumGrKq8evcCem5HzhuCJZ5EtBoFk-wJZCnrs6AIzXTKmE9rb2aTcy1ucKN_GBJk6t3YZDkqAo0RXRioqIgjkFYiAOuN3oP3AZAMZzuwc0m1mPaY3tPmzSojyOcPNRNu9IKgjSG-1nSMFn9yjAVVjCtV8IC0FXuQo005fdeyrZlUrxmi-ShoR467peFUfNXMEDY1-3bN1Gg6pYaVWgnz96U60-uOuy205I_g5gM8e8Sf0VJPOS6l4gVT1v5GUAp8CrxCiDCBV52X9tw0R5n0omiPNmSik34Wpak_7ZNoXoZaBuHp2Vr0vIK78H5OHf7IUbhol7vnqH2NSffg5CBiICqwAoBrssWT1sr4=w643-h210-s-no?authuser=0)
 > **/Users/Create** -> Do not create **admin** profiles
 > It just creates the **Develop** or **Tester** profiles
