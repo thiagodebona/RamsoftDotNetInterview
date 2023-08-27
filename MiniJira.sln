@@ -35,7 +35,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Infra & App", "3. Infra 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Live dashboard app", "4. Live dashboard app", "{CFD17F68-4F23-4793-B6E2-AF6E37DC2956}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet.MiniJira.Live.Dashboard.App", "Dotnet.MiniJira.Notification.Client\Dotnet.MiniJira.Live.Dashboard.App.csproj", "{58279321-8E33-4B3C-84A7-9E140BAC8746}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet.MiniJira.Live.Dashboard.App", "Dotnet.MiniJira.Live.Dashboard.App\Dotnet.MiniJira.Live.Dashboard.App.csproj", "{58279321-8E33-4B3C-84A7-9E140BAC8746}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
