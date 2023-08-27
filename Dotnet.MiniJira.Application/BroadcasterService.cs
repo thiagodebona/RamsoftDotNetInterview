@@ -2,9 +2,11 @@
 
 using Dotnet.MiniJira.Application.Interface;
 using Dotnet.MiniJira.Domain.Helpers;
+using Dotnet.MiniJira.Domain.Models.Broadcaster;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Text;
+using System.Text.Json;
 
 public class BroadcasterService : IBroadcasterService
 {
@@ -17,9 +19,9 @@ public class BroadcasterService : IBroadcasterService
         _appSettings = appSettings.Value;
     }
 
-    public async Task<bool> BroadcastEvent(string message)
+    public async Task<bool> BroadcastEvent(BroadCasterMessageModel message)
     {
-        await new HttpClient().PostAsync($"{_appSettings.ServerUrl}/ws/notify", new StringContent(message, Encoding.UTF8, "application/json"), new CancellationToken());
+        await new HttpClient().PostAsync($"{_appSettings.ServerUrl}/ws/notify", new StringContent(JsonSerializer.Serialize(message), Encoding.UTF8, "application/json"), new CancellationToken());
 
         _logger.LogInformation($"    -> Message brodcasted: {message}");
 

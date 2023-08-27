@@ -4,6 +4,7 @@ using BCrypt.Net;
 using Dotnet.MiniJira.Application.Interface;
 using Dotnet.MiniJira.Domain.Entities;
 using Dotnet.MiniJira.Domain.Helpers;
+using Dotnet.MiniJira.Domain.Models.Broadcaster;
 using Dotnet.MiniJira.Domain.Models.Users;
 using Dotnet.MiniJira.Infrastructure;
 using Microsoft.Extensions.Logging;
@@ -15,6 +16,7 @@ public class UserService : IUserService
 {
     private readonly ILogger<UserService> _logger;
     private readonly AppSettings _appSettings;
+    private readonly IBoardService _boardService;
     private readonly IMongoBaseRepository<User> _userRepository;
     private readonly IBroadcasterService _broadcasterService;
     private readonly IJwtService _jwtUtils;
@@ -22,6 +24,7 @@ public class UserService : IUserService
     public UserService(
         ILogger<UserService> logger,
         IMongoBaseRepository<User> userRepository,
+        IBoardService boardService,
         IBroadcasterService broadcasterService,
         IJwtService jwtUtils,
         IOptions<AppSettings> appSettings)
@@ -29,6 +32,7 @@ public class UserService : IUserService
         _logger = logger;
         _userRepository = userRepository;
         _broadcasterService = broadcasterService;
+        _boardService = boardService;
         _jwtUtils = jwtUtils;
         _appSettings = appSettings.Value;
     }
@@ -45,8 +49,11 @@ public class UserService : IUserService
         var jwtToken = _jwtUtils.GenerateJwtToken(user);
         var refreshToken = _jwtUtils.GenerateRefreshToken(ipAddress);
 
-        var message = $"User '{user.Name}', username '{user.Username}' has just logged in at {DateTime.Now.ToUniversalTime()}'";
-        await _broadcasterService.BroadcastEvent(message);
+        await _broadcasterService.BroadcastEvent(new BroadCasterMessageModel
+        {
+            Message = $"User '{user.Name}', username '{user.Username}' has just logged in at {DateTime.Now.ToUniversalTime()}'",
+            Data = (await _boardService.GetAll()).FirstOrDefault()
+        });
 
         return new AuthenticateResponse(user, jwtToken, refreshToken.Token);
     }

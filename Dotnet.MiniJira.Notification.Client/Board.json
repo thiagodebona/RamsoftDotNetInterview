@@ -1,0 +1,101 @@
+{
+  "_id": "64e9a2501275c33f7e200fa4",
+  "Name": "Ramsoft - Issues board",
+  "Description": "All the issues goes to this board",
+  "UserCreated": "64e9a24f1275c33f7e200fa1",
+  "Columns": [
+    {
+      "_id": "64e9a2501275c33f7e200fa5",
+      "Type": 0,
+      "Name": "Todo",
+      "Description": "All the todo tasks",
+      "Tasks": [
+        {
+          "_id": "64e9a2501275c33f7e200fa6",
+          "Name": "Issue on billing module",
+          "Description": "The last few days I've notice that in the period of afternoon the service sometimes responds with 500 interval server error",
+          "UserCreated": "64e9a24f1275c33f7e200fa1",
+          "IsFavorite": false,
+          "Assignee": "64e9a24f1275c33f7e200fa3",
+          "Attachments": [
+            "http://link_to_my_image/photos/cat.jpg"
+          ],
+          "DeadLine": "2023-09-02T06:57:20.352Z"
+        }
+      ]
+    },
+    {
+      "_id": "64e9a2501275c33f7e200fa7",
+      "Type": 1,
+      "Name": "In progress",
+      "Description": "In progress tasks",
+      "Tasks": [
+        {
+          "_id": "64e9a2501275c33f7e200fa8",
+          "Name": "Problem when converting EURO to DOLAR",
+          "Description": "The billing scheen is responding wrong currency conversions",
+          "UserCreated": "64e9a24f1275c33f7e200fa1",
+          "IsFavorite": false,
+          "Assignee": "64e9a24f1275c33f7e200fa3",
+          "Attachments": [
+            "http://link_to_my_image/photos/cat.jpg"
+          ],
+          "DeadLine": "2023-09-02T06:57:20.352Z"
+        }
+      ]
+    },
+    {
+      "_id": "64e9a2501275c33f7e200fa9",
+      "Type": 2,
+      "Name": "Testing",
+      "Description": "Testing tasks",
+      "Tasks": [
+        {
+          "_id": "64e9a2501275c33f7e200faa",
+          "Name": "Problem when converting EURO to DOLAR",
+          "Description": "The billing scheen is responding wrong currency conversions",
+          "UserCreated": "64e9a24f1275c33f7e200fa1",
+          "IsFavorite": false,
+          "Assignee": "64e9a24f1275c33f7e200fa2",
+          "Attachments": [
+            "http://link_to_my_image/photos/cat.jpg"
+          ],
+          "DeadLine":"2023-09-02T06:57:20.352Z"
+        },
+        {
+          "_id": "64e9a2501275c33f7e200fab",
+          "Name": "Problem when converting BRL to canadian dolar",
+          "Description": "Currency conversions not working as expected",
+          "UserCreated": "64e9a24f1275c33f7e200fa2",
+          "IsFavorite": false,
+          "Assignee": "64e9a24f1275c33f7e200fa2",
+          "Attachments": [
+            "http://link_to_my_image/photos/cat.jpg"
+          ],
+          "DeadLine": "2023-09-02T06:57:20.352Z"
+        }
+      ]
+    },
+    {
+      "_id": "64e9a2501275c33f7e200fac",
+      "Type": 4,
+      "Name": "Done",
+      "Description": "Done tasks",
+      "Tasks": [
+        {
+          "_id": "64e9a2501275c33f7e200fad",
+          "Name": "Docker image not building",
+          "Description": "Something is blocking the CD/CI pipelines to go ahead, need further check",
+          "UserCreated": "64e9a24f1275c33f7e200fa1",
+          "IsFavorite": false,
+          "Assignee": "64e9a24f1275c33f7e200fa2",
+          "Attachments": [
+            "http://link_to_my_image/photos/cat.jpg"
+          ],
+          "DeadLine": "2023-09-02T06:57:20.352Z"
+        }
+      ]
+    }
+  ],
+  "ArchivedTasks": null
+}

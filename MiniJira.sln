@@ -17,7 +17,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker files", "Docker file
 	ProjectSection(SolutionItems) = preProject
 		Dockerfile = Dockerfile
 		Mongo-docker-compose.yml = Mongo-docker-compose.yml
-		Readme.md = Readme.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet.MiniJira.API", "Dotnet.MiniJira.API\Dotnet.MiniJira.API.csproj", "{B1011620-680D-44FC-A1DF-9519DFC762CE}"

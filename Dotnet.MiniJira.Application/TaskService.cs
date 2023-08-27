@@ -4,6 +4,7 @@ using Dotnet.MiniJira.Application.Interface;
 using Dotnet.MiniJira.Domain.Entities;
 using Dotnet.MiniJira.Domain.Helpers;
 using Dotnet.MiniJira.Domain.Models.Board;
+using Dotnet.MiniJira.Domain.Models.Broadcaster;
 using Dotnet.MiniJira.Infrastructure;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
@@ -50,8 +51,11 @@ public class TaskService : ITaskService
 
         await _boardRepository.UpdateAsync(board, new CancellationToken());
 
-        var message = $"New attachments were inserted in the task '{itemToUpdate.Name}'";
-        await _broadcasterService.BroadcastEvent(message);
+        await _broadcasterService.BroadcastEvent(new BroadCasterMessageModel
+        {
+            Message = $"New attachments were inserted in the task '{itemToUpdate.Name}'",
+            Data = board
+        });
 
         return item;
     }
@@ -82,8 +86,11 @@ public class TaskService : ITaskService
 
         await _boardRepository.UpdateAsync(board, new CancellationToken());
 
-        var message = $"The task '{itemToUpdate.Name}' was assigned to the user '{user.Name}'";
-        await _broadcasterService.BroadcastEvent(message);
+        await _broadcasterService.BroadcastEvent(new BroadCasterMessageModel
+        {
+            Message = $"The task '{itemToUpdate.Name}' was assigned to the user '{user.Name}'",
+            Data = board
+        });
 
         return itemToUpdate;
     }
@@ -128,8 +135,11 @@ public class TaskService : ITaskService
 
         await _boardRepository.UpdateAsync(board, new CancellationToken());
 
-        var message = $"A new task '{newTask.Name}' was inserted in the column '{columnToUse.Name}' to the board '{board.Name}'";
-        await _broadcasterService.BroadcastEvent(message);
+        await _broadcasterService.BroadcastEvent(new BroadCasterMessageModel
+        {
+            Message = $"A new task '{newTask.Name}' was inserted in the column '{columnToUse.Name}' to the board '{board.Name}'",
+            Data = board
+        });
 
         return board;
     }
@@ -173,8 +183,11 @@ public class TaskService : ITaskService
 
         await _boardRepository.UpdateAsync(board, new CancellationToken());
 
-        var message = $"The task '{itemToUpdate.Name}' was just updated'";
-        await _broadcasterService.BroadcastEvent(message);
+        await _broadcasterService.BroadcastEvent(new BroadCasterMessageModel
+        {
+            Message = $"The task '{itemToUpdate.Name}' was just updated'",
+            Data = board
+        });
 
         return itemToUpdate;
     }
@@ -198,8 +211,11 @@ public class TaskService : ITaskService
 
         await _boardRepository.UpdateAsync(board, new CancellationToken());
 
-        var message = $"Task deleted: '{currentTask.Name}', column '{currentColumn.Name}', board '{board.Name}'";
-        await _broadcasterService.BroadcastEvent(message);
+        await _broadcasterService.BroadcastEvent(new BroadCasterMessageModel
+        {
+            Message = $"Task deleted: '{currentTask.Name}', column '{currentColumn.Name}', board '{board.Name}'",
+            Data = board
+        });
 
         return board;
     }
@@ -226,8 +242,11 @@ public class TaskService : ITaskService
 
         await _boardRepository.UpdateAsync(board, new CancellationToken());
 
-        var message = $"Task '{task.Name}' moved from column '{oldTaskColumn.Name}' to the column '{newTaskColumn.Name}', board '{board.Name}'";
-        await _broadcasterService.BroadcastEvent(message);
+        await _broadcasterService.BroadcastEvent(new BroadCasterMessageModel
+        {
+            Message = $"Task '{task.Name}' moved from column '{oldTaskColumn.Name}' to the column '{newTaskColumn.Name}', board '{board.Name}'",
+            Data = board
+        });
 
         return board;
     }

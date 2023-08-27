@@ -27,5 +27,5 @@ public class Task : Entity
     /// List of base64 images
     /// </summary>
     public List<string> Attachments { get; set; } = new List<string>();
-    public DateTime DeadLine { get; set; }
+    public DateTime? DeadLine { get; set; }
 }

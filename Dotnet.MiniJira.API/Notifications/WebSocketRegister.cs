@@ -47,13 +47,11 @@ public class WebSocketRegister : IWebSocketRegister
                     var userInfo = new Tuple<WebSocket, AuthenticateResponse>(ws, login);
                     connections.Add(userInfo);
 
-                    await Broadcast($"{login.Name} has just connected");
                     await ReceiveMessage(ws, async (result, buffer) =>
                     {
                         if (result.MessageType == WebSocketMessageType.Close || ws.State == WebSocketState.Aborted)
                         {
                             connections.Remove(userInfo);
-                            await Broadcast($"{login.Name} has just disconnected");
                             await ws.CloseAsync(result.CloseStatus.Value, result.CloseStatusDescription, CancellationToken.None);
                         }
                     });
@@ -69,7 +67,7 @@ public class WebSocketRegister : IWebSocketRegister
                 context.Request.EnableBuffering();
 
                 var bodyString = "";
-                var strReader = new StreamReader(context.Request.Body, Encoding.UTF8, true, 1024, true);
+                var strReader = new StreamReader(context.Request.Body, Encoding.UTF8, true, 2048, true);
                 using (StreamReader reader = strReader)
                 {
                     bodyString = await reader.ReadToEndAsync();
