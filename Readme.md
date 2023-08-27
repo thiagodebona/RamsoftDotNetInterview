@@ -8,7 +8,7 @@ Used technologies:
  - Dotnet core 6 - **Minimalism code style**
  - MongoDB
  - JWT Authenticator
- - WebSocket - **For live notifications**
+ - WebSocket - **For live data streaming**
   - Fully mocked unit tests that cover all the cases
   
  Used tools:
