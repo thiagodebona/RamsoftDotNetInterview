@@ -1,5 +1,4 @@
-![image](https://github.com/thiagodebona/RamsoftDotNetInterview/assets/3027858/01911b7a-745c-467e-acaa-bf00b25e4a50)
-# Welcome to MiniJira App!
+# Welcome to MiniJira tasks manager App!
 ## Created from scratch, took 23 hours to build it. Including this documentation
 
 Simple .Net Core 6 App tasks manager  **application** meant to be sent to **Ramsoft DotNet interview** for **Thiago**
