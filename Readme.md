@@ -169,6 +169,8 @@ Now we can see in the client that a new task was inserted in the board in the co
 |/Board/DeleteColumn|DELETE|true|true| true|
 |/Board/CreateColumn|GET|true|true| true|
 
+> Tasks inside of a delete column are moved the list of archived tasks
+
 ![image info](./assets/1a.PNG)
 > **/Users/Create** -> Do not create **admin** profiles
 > It just creates the **Develop** or **Tester** profiles
