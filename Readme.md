@@ -115,7 +115,7 @@ Now in your SwaggerUI in the section "Users", when you try to authenticate, if t
 
 ![User](./assets/k11k12.PNG)
 
-![User](./assets/k9k10.PNG)
+![User](./assets/aa113.PNG)
 
 Now let's create a new board
 

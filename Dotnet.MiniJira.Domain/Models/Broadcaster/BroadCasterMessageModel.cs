@@ -1,5 +1,4 @@
-﻿
-namespace Dotnet.MiniJira.Domain.Models.Broadcaster;
+﻿namespace Dotnet.MiniJira.Domain.Models.Broadcaster;
 public class BroadCasterMessageModel
 {
     public string Message { get; set; }

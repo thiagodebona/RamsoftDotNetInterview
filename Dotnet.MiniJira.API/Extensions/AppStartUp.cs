@@ -2,7 +2,6 @@
 using Dotnet.MiniJira.API.Notifications;
 using Dotnet.MiniJira.Application.Interface;
 using MiniJira.API.MIddleware;
-using System.Text.Json.Serialization;
 
 namespace Dotnet.MiniJira.API.Extensions
 {
@@ -14,7 +13,7 @@ namespace Dotnet.MiniJira.API.Extensions
 
             services.AddCors();
             services.AddControllers()
-                .AddJsonOptions(x => x.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull);
+                .AddJsonOptions(x => x.JsonSerializerOptions.PropertyNamingPolicy = null);
 
             services.InjectRequiredDependencies(builder.Configuration);
 
@@ -25,6 +24,7 @@ namespace Dotnet.MiniJira.API.Extensions
         public static void ConfigureApp(this WebApplication app, IConfiguration settings)
         {
             /* Seeding the db */
+
             app.Services.GetService<IInitialDataSeederService>()?.SeedDatabase().Wait();
 
             app.ConfigureSwagger();

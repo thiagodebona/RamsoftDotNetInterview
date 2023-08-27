@@ -79,7 +79,7 @@ namespace Dotnet.MiniJira.Application.Seeder
                                     Assignee = devToAdd,
                                     DeadLine = DateTime.Now.AddDays(7),
                                     Name = "Issue on billing module",
-                                    UserCreated = adminToAdd.Id,
+                                    UserCreated = adminToAdd,
                                     Attachments = attachItemToAdd,
                                     Description = "The last few days I've notice that in the period of afternoon the service sometimes responds with 500 interval server error"
                                 }
@@ -94,7 +94,7 @@ namespace Dotnet.MiniJira.Application.Seeder
                                     Assignee = devToAdd,
                                     DeadLine = DateTime.Now.AddDays(7),
                                     Name = "Problem when converting EURO to DOLAR",
-                                    UserCreated = adminToAdd.Id,
+                                    UserCreated = adminToAdd,
                                     Attachments = attachItemToAdd,
                                     Description = "The billing scheen is responding wrong currency conversions"
                                 }
@@ -110,7 +110,7 @@ namespace Dotnet.MiniJira.Application.Seeder
                                     Assignee = testToAdd,
                                     DeadLine = DateTime.Now.AddDays(7),
                                     Name = "Problem when converting EURO to DOLAR",
-                                    UserCreated = adminToAdd.Id,
+                                    UserCreated = adminToAdd,
                                     Attachments = attachItemToAdd,
                                     Description = "The billing scheen is responding wrong currency conversions"
                                 },
@@ -118,7 +118,7 @@ namespace Dotnet.MiniJira.Application.Seeder
                                     Assignee = testToAdd,
                                     DeadLine = DateTime.Now.AddDays(7),
                                     Name = "Problem when converting BRL to canadian dolar",
-                                    UserCreated = testToAdd.Id,
+                                    UserCreated = testToAdd,
                                     Attachments = attachItemToAdd,
                                     Description = "Currency conversions not working as expected"
                                 }
@@ -133,7 +133,7 @@ namespace Dotnet.MiniJira.Application.Seeder
                                     Assignee = testToAdd,
                                     DeadLine = DateTime.Now.AddDays(7),
                                     Name = "Docker image not building",
-                                    UserCreated = adminToAdd.Id,
+                                    UserCreated = adminToAdd,
                                     Attachments = attachItemToAdd,
                                     Description = "Something is blocking the CD/CI pipelines to go ahead, need further check"
                                 },

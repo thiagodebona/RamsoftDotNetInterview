@@ -10,11 +10,11 @@ public class Task : Entity
 
     }
 
-    public Task(string name, string description, string idUserCreated, DateTime deadLine, bool isFavorite, User assignee)
+    public Task(string name, string description, User userCreated, DateTime deadLine, bool isFavorite, User assignee)
     {
         Name = name;
         Description = description;
-        UserCreated = idUserCreated;
+        UserCreated = userCreated;
         DeadLine = deadLine;
         IsFavorite = isFavorite;
         Assignee = assignee;
@@ -22,7 +22,7 @@ public class Task : Entity
     }
     public string Name { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
-    public string UserCreated { get; set; } = string.Empty;
+    public User UserCreated { get; set; }
     public DateTime DateCreate { get; set; } = DateTime.Now;
     public DateTime? DateUpdate { get; set; }
     public bool IsFavorite { get; set; }

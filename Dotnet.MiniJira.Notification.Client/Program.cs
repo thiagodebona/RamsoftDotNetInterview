@@ -1,7 +1,6 @@
 ﻿using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
-using Dotnet.MiniJira.Domain.Models.Broadcaster;
 using Dotnet.MiniJira.Notification.Client;
 
 var ws = new ClientWebSocket();
@@ -18,11 +17,11 @@ while (true)
 }
 
 await ws.ConnectAsync(new Uri($"ws://localhost:7100/ws?username={username}&password={password}"), CancellationToken.None);
-Console.WriteLine($"{DateTime.Now} Successfuly connected!");
+Console.WriteLine($"{DateTime.Now:yyyy/MM/dd H:mm} -> Successfuly connected!");
 
 var receiveTask = Task.Run(async () =>
 {
-    var buffer = new byte[1024 * 4];
+    var buffer = new byte[1024 * 5000];
     while (true)
     {
         var result = await ws.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
@@ -33,19 +32,19 @@ var receiveTask = Task.Run(async () =>
         }
 
         var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
-        var notification = JsonSerializer.Deserialize<BroadCasterMessageModel>(message);
+        var notification = JsonSerializer.Deserialize<Dotnet.MiniJira.Domain.Models.Broadcaster.BroadCasterMessageModel>(message);
         if (notification.Data == null)
-            Console.WriteLine($"{DateTime.Now.ToUniversalTime()} -> {notification.Message}");
+            Console.WriteLine($"{DateTime.Now:yyyy/MM/dd H:mm} -> {notification.Message}");
         else
         {
-            Console.WriteLine($"{DateTime.Now.ToUniversalTime()} -> {notification.Message}");
+            Console.WriteLine($"{DateTime.Now:yyyy/MM/dd H:mm} -> {notification.Message}");
             Console.WriteLine(new TableCreatorHelper().CreateTable(notification.Data));
         }
     }
 });
 
 
-await Task.WhenAll(receiveTask);
+await System.Threading.Tasks.Task.WhenAll(receiveTask);
 
 if (ws.State != WebSocketState.Closed)
 {

@@ -124,7 +124,7 @@ public class TaskService : ITaskService
         if (boardColumn.Tasks == null || !boardColumn.Tasks.Any())
             boardColumn.Tasks = new List<Task>();
 
-        var newTask = new Task(model.Task.Name, model.Task.Description, user.Id, model.Task.DeadLine,model.Task.IsFavorite, user);
+        var newTask = new Task(model.Task.Name, model.Task.Description, user, model.Task.DeadLine,model.Task.IsFavorite, user);
 
         boardColumn.Tasks.Add(newTask);
 

@@ -9,6 +9,7 @@ using Dotnet.MiniJira.Domain.Models.Users;
 using Dotnet.MiniJira.Infrastructure;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 using System.Collections.Generic;
 using System.Linq;
 

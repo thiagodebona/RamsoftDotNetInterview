@@ -1,5 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Dotnet.MiniJira.Domain.Core
 {
@@ -10,6 +10,9 @@ namespace Dotnet.MiniJira.Domain.Core
             Id = ObjectId.GenerateNewId().ToString();
         }
 
-        public string Id { get; protected set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+
+        public string Id { get; set; }
     }
 }
