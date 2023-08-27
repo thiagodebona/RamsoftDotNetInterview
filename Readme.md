@@ -35,6 +35,8 @@ Including ->   Simple console application to see the MiniJira tasks and board at
  - Live connection with the back-end
  - Authenticated real time console application to see the board
 
+![User](./assets/aa113.PNG)
+
 # Project Files Structure
 ![User](./assets/2314.PNG)
 
@@ -124,8 +126,6 @@ Now you need to inform in the client the username and password and press enter, 
 Now in your SwaggerUI in the section "Users", when you try to authenticate, if the authentication goes well you will receive in your client app the current status of the MiniJira
 
 ![User](./assets/k11k12.PNG)
-
-![User](./assets/aa113.PNG)
 
 Now let's create a new board
 
