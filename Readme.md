@@ -1,3 +1,4 @@
+![image](https://github.com/thiagodebona/RamsoftDotNetInterview/assets/3027858/01911b7a-745c-467e-acaa-bf00b25e4a50)
 # Welcome to MiniJira App!
 ## Created from scratch, took 23 hours to build it. Including this documentation
 
@@ -83,7 +84,7 @@ Then
  > Administrator -> Username[admin] Password[admin]
  > Developer      -> Username[developer] Password[developer]
  > Tester -> Username[tester] Password[tester]
- >
+ 
 We will see two consoles, one is the **WebAPI** and the other is the **client**, the client is used like a front-end app to see what's going on in the **MiniJira**, the client receive live notification via **webSocket**
 
 ![User](./assets/app1.PNG)
