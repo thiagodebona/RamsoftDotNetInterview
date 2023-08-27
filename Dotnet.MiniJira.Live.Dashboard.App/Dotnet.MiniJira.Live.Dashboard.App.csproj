@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <None Remove="Program.cs~RFc73783.TMP" />
+    <None Remove="Helpers\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,9 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Board.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <Folder Include="Helpers\" />
   </ItemGroup>
-
 </Project>

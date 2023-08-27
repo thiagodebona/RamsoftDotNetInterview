@@ -1,9 +1,8 @@
-﻿using Dotnet.MiniJira.Dashboard.App;
-using Dotnet.MiniJira.Domain.Helpers;
-using Dotnet.MiniJira.Live.Dashboard.App;
-using System.Net.WebSockets;
+﻿using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
+using Dotnet.MiniJira.Dashboard.App;
+using Dotnet.MiniJira.Live.Dashboard.App;
 
 ClientWebSocket ws = new ClientWebSocket();
 var consoleWr = new ConsoleWriter();
