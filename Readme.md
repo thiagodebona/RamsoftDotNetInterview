@@ -1,4 +1,4 @@
-# Welcome to MiniJira App!
+# Welcome to MiniJira tasks manager App!
 ## Created from scratch, took 23 hours to build it. Including this documentation
 
 Simple .Net Core 6 App tasks manager  **application** meant to be sent to **Ramsoft DotNet interview** for **Thiago**
@@ -85,7 +85,7 @@ Then
  > Administrator -> Username[admin] Password[admin]
  > Developer      -> Username[developer] Password[developer]
  > Tester -> Username[tester] Password[tester]
- >
+ 
 We will see two consoles, one is the **WebAPI** and the other is the **client**, the client is used like a front-end app to see what's going on in the **MiniJira**, the client receive live notification via **webSocket**
 
 ![User](./assets/app1.PNG)
