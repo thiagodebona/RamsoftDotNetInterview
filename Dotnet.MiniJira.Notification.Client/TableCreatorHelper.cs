@@ -1,14 +1,16 @@
-﻿using System.Text;
-using Dotnet.MiniJira.Domain.Entities;
-using Dotnet.MiniJira.Domain.Enums.Board;
-using Dotnet.MiniJira.Domain.Enums.User;
+﻿using Dotnet.MiniJira.Domain.Entities;
+using Dotnet.MiniJira.Live.Dashboard.App;
+using System.Text;
 
-namespace Dotnet.MiniJira.Notification.Client
+namespace Dotnet.MiniJira.Dashboard.App
 {
+
     public class TableCreatorHelper
     {
+        public string dateFormat = "yyyy/MM/dd HH:mm";
         public string CreateTable(List<Board> boardList)
         {
+            var consoleWr = new ConsoleWriter();
             var toReturn = new StringBuilder();
 
             foreach (var board in boardList)
@@ -18,7 +20,7 @@ namespace Dotnet.MiniJira.Notification.Client
                 table1.SetHeaders("Board", "Columns", "Tasks", "Date create", "Archived tasks", "Id");
                 var totalTasks = board.Columns.Select(p => new { total = p.Tasks?.Count() }).Sum(p => p.total).ToString();
                 table1.AddRow(board.Name, board.Columns.Count.ToString(),
-                    totalTasks, board.DateCreate.ToString("dddd, dd MMMM yyyy HH:mm:ss"), board.ArchivedTasks?.Count.ToString() ?? "0", board.Id.ToString());
+                    totalTasks, board.DateCreate.ToString(dateFormat), board.ArchivedTasks?.Count.ToString() ?? "0", board.Id.ToString());
                 toReturn.Append(table1.ToString());
 
                 string[] columnItems = new string[] { };
@@ -26,22 +28,22 @@ namespace Dotnet.MiniJira.Notification.Client
                 {
                     var table = new Table();
                     table.SetHeaders("Column", "Date create", "Tasks", "Expired tasks", "Id");
-                    table.AddRow(item.Name, item.DateCreate.ToString("dddd, dd MMMM yyyy HH:mm:ss"), item.Tasks.Count.ToString(), item.Tasks.Count(p => DateTime.Now >= p.DeadLine).ToString(), item.Id.ToString());
+                    table.AddRow(item.Name, item.DateCreate.ToString(dateFormat), item.Tasks.Count.ToString(), item.Tasks.Count(p => DateTime.Now >= p.DeadLine).ToString(), item.Id.ToString());
                     toReturn.Append($"{table.ToString()}");
 
                     foreach (var tsk in item.Tasks)
                     {
                         toReturn.AppendLine($@"
-      Id:          {tsk.Id}
-      Name:        {tsk.Name}
-      Description: {tsk.Description}
-      Assignee:    {tsk.Assignee.Username}({tsk.Assignee.Name})
-      User created:{tsk.UserCreated.Username}({tsk.UserCreated.Name}) 
-      Dead line:   {tsk.DeadLine?.ToString($"dddd, dd MMMM yyyy HH:mm:ss")}
-      Task status: " + (DateTime.Now >= tsk.DeadLine ? "Expired" : "Not expired") + $@"
-      Date create: {tsk.DateCreate.ToString($"dddd, dd MMMM yyyy HH:mm:ss")}
-      Date update: {tsk.DateCreate.ToString($"dddd, dd MMMM yyyy HH:mm:ss")}
-      Favorite:    " + (tsk.IsFavorite ? "Yes" : "No") + $@"
+      Id:           {{FC=Yellow}}{tsk.Id}{{/FC}}
+      Name:         {{FC=Yellow}}{tsk.Name}{{/FC}}
+      Description:  {tsk.Description}
+      Assignee:     {{FC=Yellow}}{tsk.Assignee.Username}({tsk.Assignee.Name}){{/FC}}
+      User created: {{FC=Yellow}}{tsk.UserCreated.Username}({tsk.UserCreated.Name}){{/FC}} 
+      Dead line:    {tsk.DeadLine?.ToString(dateFormat)}
+      Task status:  " + (DateTime.Now >= tsk.DeadLine ? "{FC=Red}Expired{/FC}" : "{FC=Blue}Not expired{/FC}") + $@"
+      Date create:  {tsk.DateCreate.ToString(dateFormat)}
+      Date update:  {{FC=Orange}}{(tsk.DateUpdate?.ToString(dateFormat) ?? "Not updated yet")}" + @"{/FC}
+      Favorite:     " + (tsk.IsFavorite ? "{FC=Green}Yes{/FC}" : "{FC=Red}No{/FC}") + $@"
       " + (item.Tasks.Count > 1 && item.Tasks[item.Tasks.IndexOf(tsk)] != item.Tasks[item.Tasks.Count - 1] ? "_________________________________________" : ""));
                     }
                     toReturn.AppendLine("");

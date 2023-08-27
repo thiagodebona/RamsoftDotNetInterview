@@ -23,7 +23,7 @@ public class BroadcasterService : IBroadcasterService
     {
         await new HttpClient().PostAsync($"{_appSettings.ServerUrl}/ws/notify", new StringContent(JsonSerializer.Serialize(message), Encoding.UTF8, "application/json"), new CancellationToken());
 
-        _logger.LogInformation($"    -> Message brodcasted: {message}");
+        _logger.LogInformation($"    -> Message brodcasted: {message.Message}");
 
         return true;
     }

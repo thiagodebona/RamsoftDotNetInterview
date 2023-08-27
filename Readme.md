@@ -38,11 +38,20 @@ Including ->   Simple console application to see the MiniJira tasks and board at
 # Project Files Structure
 ![User](./assets/2314.PNG)
 
-- The project is organized in four main projects, splitted by DDD
+- The project is organized in six projects
+ 
     > Dotnet.MiniJira.API
+  
     > Dotnet.MiniJira.Domain 
+
     > Dotnet.MiniJira.Application
+  
     > Dotnet.MiniJira.Infrastructure
+  
+    > Dotnet.MiniJira.Live.Dashboard.App
+  
+    > Dotnet.MiniJira.Tests
+    
 - The project contains 7 folder.
 	> Between folder 1. and 4. we find all the required project to run the **MiniJira** sub-menu.
 	
@@ -53,7 +62,7 @@ Including ->   Simple console application to see the MiniJira tasks and board at
     > **Tests** folder contains all mocked tests to keep integrity in the source code
 - Secondary projects
 -   > Dotnet.MiniJira.Tests
--   > Dotnet.MiniJira.Notification.Client - Connect to the **back-end WebSocker** app for **live notifications**
+-   > Dotnet.MiniJira.Live.Dashboard.App - Connect to the **back-end WebSocker** app for **live streamming of data**
 
 ## How to run locally the project?
 
@@ -63,7 +72,7 @@ To start a new mongodb docker instace simple run the the following command
 
 Then 
  > Configure your VisualStudio to run multiple projects at once
- > **Dotnet.MiniJira.API** and **Dotnet.MiniJira.Notification.Client**
+ > **Dotnet.MiniJira.API** and **Dotnet.MiniJira.Live.Dashboard.App**
 
 ![User](./assets/app.PNG)
 
@@ -78,6 +87,7 @@ Then
 We will see two consoles, one is the **WebAPI** and the other is the **client**, the client is used like a front-end app to see what's going on in the **MiniJira**, the client receive live notification via **webSocket**
 
 ![User](./assets/app1.PNG)
+![User](./assets/app2.PNG)
 
 ## Fully functional Swagger UI with Bearer Auth
 > Swagger URL is http://localhost:7100/index.html
@@ -98,7 +108,7 @@ And Now you are ready to use the API through Swagger UI
 ## Connecting the Client to the Notification server via WebSocket
 
 Now you need to inform in the client the username and password and press enter, then it'll connect to the WebSocket and will start receiving live updates from the server.
-![User](./assets/c3c4.PNG)
+![User](./assets/app2.PNG)
 
 **The live notification are received whenever one of the following thing happen**
 > User is authenticated

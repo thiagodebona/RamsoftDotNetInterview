@@ -215,7 +215,7 @@ public class TasksTests : MockedBaseTest
         Assert.IsNotNull(resultAssignTask?.Id);
 
         var resultGet = _taskService.GetById(boardToUse.Id, addedTaskTodo.Id).Result;
-        Assert.AreEqual(resultGet.Assignee, _testUser.Id);
+        Assert.AreEqual(resultGet.Assignee.Id, _testUser.Id);
     }
 
     [Test]

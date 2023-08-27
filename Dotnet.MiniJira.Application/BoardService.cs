@@ -80,7 +80,7 @@ public class BoardService : IBoardService
             await _broadcasterService.BroadcastEvent(new BroadCasterMessageModel
             {
                 Message = $"A new board has just been created: {boardToAdd.Name}",
-                Data = new List<Board> { await GetById(boardToAdd.Id, "Name ASC") }
+                Data = await GetAll("Name ASC")
             });
 
             return await _boardRepository.GetByIdAsync(boardToAdd.Id, new CancellationToken());
@@ -105,7 +105,7 @@ public class BoardService : IBoardService
         await _broadcasterService.BroadcastEvent(new BroadCasterMessageModel
         {
             Message = $"Board '{board.Name}' has just been deleted",
-            Data = new List<Board> { board }
+            Data = await GetAll("Name ASC")
         });
 
         return true;
@@ -134,7 +134,7 @@ public class BoardService : IBoardService
         await _broadcasterService.BroadcastEvent(new BroadCasterMessageModel
         {
             Message = $"Board name updated from -> '{oldname}', to '{board.Name}', and description from '{oldDesc}', to '{board.Description}'",
-            Data = new List<Board> { board }
+            Data = await GetAll("Name ASC")
         });
 
         await _boardRepository.UpdateAsync(board, new CancellationToken());
@@ -163,7 +163,7 @@ public class BoardService : IBoardService
         await _broadcasterService.BroadcastEvent(new BroadCasterMessageModel
         {
             Message = $"New column '{model.Column.Name}' created in the board {board.Name}!",
-            Data = new List<Board> { board }
+            Data = await GetAll("Name ASC")
         });
 
         return board;
@@ -194,7 +194,7 @@ public class BoardService : IBoardService
         await _broadcasterService.BroadcastEvent(new BroadCasterMessageModel
         {
             Message = $"Deleted column '{columnToRemove.Name}' from the board {board.Name}!",
-            Data = new List<Board> { board }
+            Data = await GetAll("Name ASC")
         });
 
         return board;

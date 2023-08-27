@@ -33,7 +33,7 @@ public class WebSocketRegister : IWebSocketRegister
     {
         try
         {
-            _logger.LogInformation($"------> Live notifications running Web socket server running on '{runningIp}'");
+            _logger.LogInformation($"------> Live data streamming running Web socket server on '{runningIp}'");
             app.Map("/ws", async context =>
             {
                 if (context.WebSockets.IsWebSocketRequest)
@@ -51,9 +51,11 @@ public class WebSocketRegister : IWebSocketRegister
                     var userInfo = new Tuple<WebSocket, AuthenticateResponse>(ws, login);
                     connections.Add(userInfo);
 
+                    var boards = await _boardService.GetAll();
+
                     await Broadcast(JsonSerializer.Serialize(new BroadCasterMessageModel {
-                         Data = await _boardService.GetAll(),
-                         Message = $"Welcome to MiniJira App - Connection started at {DateTime.Now:MM/dd/yyyy h:mm tt}"
+                         Data = boards,
+                         Message = $"Welcome to MiniJira App - Connection started"
                     }));
 
                     await ReceiveMessage(ws, async (result, buffer) =>
@@ -97,7 +99,7 @@ public class WebSocketRegister : IWebSocketRegister
 
     public async Task ReceiveMessage(WebSocket socket, Action<WebSocketReceiveResult, byte[]> handleMessage)
     {
-        var buffer = new byte[1024 * 4];
+        var buffer = new byte[1024 * 24];
         while (socket.State == WebSocketState.Open)
             handleMessage(await socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None), buffer);
     }

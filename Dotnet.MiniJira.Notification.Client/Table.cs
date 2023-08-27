@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Dotnet.MiniJira.Notification.Client
+namespace Dotnet.MiniJira.Dashboard.App
 {
     public class Table
     {

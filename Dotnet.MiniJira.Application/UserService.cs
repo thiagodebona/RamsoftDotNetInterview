@@ -44,7 +44,7 @@ public class UserService : IUserService
 
         // validate
         if (user == null || !BCrypt.Verify(model.Password, user.PasswordHash))
-            throw new AppException("Username or password is incorrect");
+            throw new UnauthorizedException("Invalid credentials, please try again");
 
         // authentication successful so generate jwt and refresh tokens
         var jwtToken = _jwtUtils.GenerateJwtToken(user);

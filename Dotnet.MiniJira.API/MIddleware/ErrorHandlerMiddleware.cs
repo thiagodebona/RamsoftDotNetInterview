@@ -24,8 +24,12 @@ public class ErrorHandlerMiddleware
             var response = context.Response;
             response.ContentType = "application/json";
 
-            switch(error)
+            switch (error)
             {
+                case UnauthorizedException e:
+                    // custom application error
+                    response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                    break;
                 case AppException e:
                     // custom application error
                     response.StatusCode = (int)HttpStatusCode.BadRequest;
@@ -40,7 +44,7 @@ public class ErrorHandlerMiddleware
                     break;
             }
 
-            var result = JsonSerializer.Serialize(new { message = error?.Message });
+            var result = JsonSerializer.Serialize(new { code = response.StatusCode, message = error?.Message });
             await response.WriteAsync(result);
         }
     }
