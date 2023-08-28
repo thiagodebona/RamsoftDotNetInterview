@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Dotnet.MiniJira.Live.Dashboard.App
+namespace Dotnet.MiniJira.Live.Dashboard.App.Helpers
 {
     public class ConsoleWriter
     {
@@ -28,7 +28,7 @@ namespace Dotnet.MiniJira.Live.Dashboard.App
 
                 while (color_match.Success)
                 {
-                    if ((color_match.Index - current_index) > 0)
+                    if (color_match.Index - current_index > 0)
                     {
                         Console.Write(msg.Substring(current_index, color_match.Index - current_index));
                     }

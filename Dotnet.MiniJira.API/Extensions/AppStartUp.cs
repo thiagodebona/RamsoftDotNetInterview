@@ -1,7 +1,9 @@
 ﻿using Dotnet.MiniJira.API.Middleware;
 using Dotnet.MiniJira.API.Notifications;
 using Dotnet.MiniJira.Application.Interface;
+using Microsoft.Extensions.Options;
 using MiniJira.API.MIddleware;
+using System.Text.Json.Serialization;
 
 namespace Dotnet.MiniJira.API.Extensions
 {
@@ -13,7 +15,11 @@ namespace Dotnet.MiniJira.API.Extensions
 
             services.AddCors();
             services.AddControllers()
-                .AddJsonOptions(x => x.JsonSerializerOptions.PropertyNamingPolicy = null);
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                });
 
             services.InjectRequiredDependencies(builder.Configuration);
 

@@ -1,9 +1,8 @@
-﻿namespace Dotnet.MiniJira.Domain.Enums.User
+﻿namespace Dotnet.MiniJira.Domain.Enums.User;
+
+public enum UserProfile
 {
-    public enum UserProfile
-    {
-        ADMIN = 0,
-        DEV = 1,
-        TEST = 2
-    }
+    ADMIN = 0,
+    DEV = 1,
+    TEST = 2
 }

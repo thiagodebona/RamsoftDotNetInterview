@@ -73,7 +73,7 @@ namespace Dotnet.MiniJira.Application.Seeder
                        new BoardColumns {
                            Name = "Todo",
                            Description = "All the todo tasks",
-                           Type = ColumnType.todo,
+                           Type = ColumnType.Todo,
                            Tasks = new List<Domain.Entities.Task>() {
                                 new Domain.Entities.Task {
                                     Assignee = devToAdd,

@@ -1,8 +1,7 @@
 ﻿using Dotnet.MiniJira.Domain.Entities;
-using Dotnet.MiniJira.Live.Dashboard.App;
 using System.Text;
 
-namespace Dotnet.MiniJira.Dashboard.App
+namespace Dotnet.MiniJira.Live.Dashboard.App.Helpers
 {
 
     public class TableCreatorHelper
@@ -42,7 +41,7 @@ namespace Dotnet.MiniJira.Dashboard.App
       Dead line:    {tsk.DeadLine?.ToString(dateFormat)}
       Task status:  " + (DateTime.Now >= tsk.DeadLine ? "{FC=Red}Expired{/FC}" : "{FC=Blue}Not expired{/FC}") + $@"
       Date create:  {tsk.DateCreate.ToString(dateFormat)}
-      Date update:  {{FC=Orange}}{(tsk.DateUpdate?.ToString(dateFormat) ?? "Not updated yet")}" + @"{/FC}
+      Date update:  {{FC=Orange}}{tsk.DateUpdate?.ToString(dateFormat) ?? "Not updated yet"}" + @"{/FC}
       Favorite:     " + (tsk.IsFavorite ? "{FC=Green}Yes{/FC}" : "{FC=Red}No{/FC}") + $@"
       " + (item.Tasks.Count > 1 && item.Tasks[item.Tasks.IndexOf(tsk)] != item.Tasks[item.Tasks.Count - 1] ? "_________________________________________" : ""));
                     }

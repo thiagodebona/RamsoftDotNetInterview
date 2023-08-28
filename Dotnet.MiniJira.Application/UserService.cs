@@ -15,27 +15,18 @@ using System.Linq;
 
 public class UserService : IUserService
 {
-    private readonly ILogger<UserService> _logger;
-    private readonly AppSettings _appSettings;
-    private readonly IBoardService _boardService;
     private readonly IMongoBaseRepository<User> _userRepository;
     private readonly IBroadcasterService _broadcasterService;
     private readonly IJwtService _jwtUtils;
 
     public UserService(
-        ILogger<UserService> logger,
         IMongoBaseRepository<User> userRepository,
-        IBoardService boardService,
         IBroadcasterService broadcasterService,
-        IJwtService jwtUtils,
-        IOptions<AppSettings> appSettings)
+        IJwtService jwtUtils)
     {
-        _logger = logger;
         _userRepository = userRepository;
         _broadcasterService = broadcasterService;
-        _boardService = boardService;
         _jwtUtils = jwtUtils;
-        _appSettings = appSettings.Value;
     }
 
     public async Task<AuthenticateResponse> Authenticate(AuthenticateRequest model, string ipAddress)

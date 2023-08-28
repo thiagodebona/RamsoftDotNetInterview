@@ -1,18 +1,14 @@
 namespace MiniJira.API.MIddleware;
 
 using Dotnet.MiniJira.Application.Interface;
-using Dotnet.MiniJira.Domain.Helpers;
-using Microsoft.Extensions.Options;
 
 public class JwtMiddleware
 {
     private readonly RequestDelegate _next;
-    private readonly AppSettings _appSettings;
 
-    public JwtMiddleware(RequestDelegate next, IOptions<AppSettings> appSettings)
+    public JwtMiddleware(RequestDelegate next)
     {
         _next = next;
-        _appSettings = appSettings.Value;
     }
 
     public async Task Invoke(HttpContext context, IUserService userService, IJwtService jwtUtils)

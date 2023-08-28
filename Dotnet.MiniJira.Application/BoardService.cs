@@ -49,7 +49,7 @@ public class BoardService : IBoardService
                    new BoardColumns {
                        Name = "Todo",
                        Description = "All the todo tasks",
-                       Type = ColumnType.todo,
+                       Type = ColumnType.Todo,
                        Tasks = new List<Task>()
                    },
                    new BoardColumns {

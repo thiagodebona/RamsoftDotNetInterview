@@ -1,10 +1,9 @@
-﻿using Dotnet.MiniJira.Domain.Core;
+﻿namespace Dotnet.MiniJira.Domain.Models.Board;
 
-namespace Dotnet.MiniJira.Domain.Models.Board
+using Dotnet.MiniJira.Domain.Core;
+
+public class CreateBoardRequest : Entity
 {
-    public class CreateBoardRequest : Entity
-    {
-        public string Name { get; set; }
-        public string Description { get; set; }
-    }
+    public string Name { get; set; }
+    public string Description { get; set; }
 }

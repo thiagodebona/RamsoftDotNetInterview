@@ -22,7 +22,7 @@ public class UsersController : ControllerBase
     [HttpPost("authenticate")]
     public async Task<IActionResult> Authenticate(AuthenticateRequest model)
     {
-        var response = await _userService.Authenticate(model, "http://localhost");
+        var response = await _userService.Authenticate(model, "http://mini.jira");
         return Ok(response);
     }
 
@@ -30,12 +30,12 @@ public class UsersController : ControllerBase
     [HttpPost("create")]
     public async Task<IActionResult> CreateUser(CreateUserRequest model)
     {
-        var user = await _userService.CreateUser(model, "http://localhost");
+        await _userService.CreateUser(model, "http://mini.jira");
         var response = await _userService.Authenticate(new AuthenticateRequest
         {
             Password = model.Password,
             Username = model.Username
-        }, "http://localhost");
+        }, "http://mini.jira");
 
         return Ok(response);
     }
@@ -45,7 +45,7 @@ public class UsersController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(string id)
     {
-        var user = _userService.GetById(id);
+        var user = await _userService.GetById(id);
         return Ok(user);
     }
 }

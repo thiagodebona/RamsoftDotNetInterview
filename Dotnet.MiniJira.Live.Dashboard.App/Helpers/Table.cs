@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Dotnet.MiniJira.Dashboard.App
+namespace Dotnet.MiniJira.Live.Dashboard.App.Helpers
 {
     public class Table
     {

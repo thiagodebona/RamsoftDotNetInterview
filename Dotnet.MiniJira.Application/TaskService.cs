@@ -12,20 +12,17 @@ using System.Linq;
 
 public class TaskService : ITaskService
 {
-    private readonly ILogger<UserService> _logger;
     private readonly IBoardService _boardService;
     private readonly IUserService _userService;
     private readonly IBroadcasterService _broadcasterService;
     private readonly IMongoBaseRepository<Board> _boardRepository;
 
     public TaskService(
-        ILogger<UserService> logger,
         IBoardService boardService,
         IUserService userService,
         IMongoBaseRepository<Board> boardRepository,
         IBroadcasterService broadcasterService)
     {
-        _logger = logger;
         _boardService = boardService;
         _userService = userService;
         _boardRepository = boardRepository;
@@ -43,8 +40,8 @@ public class TaskService : ITaskService
 
         var item = await FindTaskInBoard(board, model.TaskId);
 
-        var itemToUpdate = boardColumn.Tasks.ElementAt(boardColumn.Tasks.IndexOf(item));
-        if (itemToUpdate == null)
+        var itemToUpdate = boardColumn.Tasks?.ElementAt(boardColumn.Tasks.IndexOf(item));
+        if (itemToUpdate.Attachments == null)
             itemToUpdate.Attachments = new List<string>();
 
         itemToUpdate.Attachments.AddRange(model.Attachments);
@@ -124,7 +121,7 @@ public class TaskService : ITaskService
         if (boardColumn.Tasks == null || !boardColumn.Tasks.Any())
             boardColumn.Tasks = new List<Task>();
 
-        var newTask = new Task(model.Task.Name, model.Task.Description, user, model.Task.DeadLine,model.Task.IsFavorite, user);
+        var newTask = new Task(model.Task.Name, model.Task.Description, user, model.Task.DeadLine, model.Task.IsFavorite, user);
 
         boardColumn.Tasks.Add(newTask);
 
@@ -275,7 +272,7 @@ public class TaskService : ITaskService
         return await FindTaskInBoard(board, taskId);
     }
 
-    private async Task<Task> FindTaskInBoard(Board board, string taskId)
+    private Task<Task> FindTaskInBoard(Board board, string taskId)
     {
         var itemToReturn = FindColumnByTask(board, taskId);
 
@@ -284,7 +281,7 @@ public class TaskService : ITaskService
         if (taskToReturn == null)
             throw new KeyNotFoundException($"Task {taskId} not found");
 
-        return taskToReturn;
+        return System.Threading.Tasks.Task.FromResult(taskToReturn);
     }
 
     private BoardColumns FindColumnByTask(Board board, string taskId)

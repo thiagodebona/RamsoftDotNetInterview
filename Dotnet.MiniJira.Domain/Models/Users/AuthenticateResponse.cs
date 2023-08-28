@@ -1,8 +1,6 @@
 namespace Dotnet.MiniJira.Domain.Models.Users;
 
 using Dotnet.MiniJira.Domain.Entities;
-using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
 using System.Text.Json.Serialization;
 
 

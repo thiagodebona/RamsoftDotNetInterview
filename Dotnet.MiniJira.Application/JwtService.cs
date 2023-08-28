@@ -3,6 +3,7 @@ namespace Dotnet.MiniJira.Application.Authorization;
 using Dotnet.MiniJira.Application.Interface;
 using Dotnet.MiniJira.Domain.Entities;
 using Dotnet.MiniJira.Domain.Helpers;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -12,12 +13,14 @@ using System.Text;
 
 public class JwtService : IJwtService
 {
+    private readonly ILogger<JwtService> _logger;
     private readonly AppSettings _appSettings;
 
     public JwtService(
-        IOptions<AppSettings> appSettings)
+        IOptions<AppSettings> appSettings, ILogger<JwtService> logger)
     {
         _appSettings = appSettings.Value;
+        _logger = logger;
     }
 
     public string GenerateJwtToken(User user)
@@ -32,6 +35,9 @@ public class JwtService : IJwtService
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
         };
         var token = tokenHandler.CreateToken(tokenDescriptor);
+
+        _logger.LogInformation($"A new JWT token has just been created, valid from {token.ValidFrom:yyyy/MM/dd H:mm} until {token.ValidTo:yyyy/MM/dd H:mm}");
+
         return tokenHandler.WriteToken(token);
     }
 
@@ -60,8 +66,10 @@ public class JwtService : IJwtService
             // return user id from JWT token if validation successful
             return userId;
         }
-        catch
+        catch(Exception e)
         {
+            _logger.LogWarning($"Error while validation JWT token -> {e.Message}");
+
             // return null if validation fails
             return null;
         }

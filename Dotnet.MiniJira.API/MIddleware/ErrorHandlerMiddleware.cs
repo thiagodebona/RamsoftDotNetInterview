@@ -6,11 +6,13 @@ using System.Text.Json;
 
 public class ErrorHandlerMiddleware
 {
+    private readonly ILogger<ErrorHandlerMiddleware> _logger;
     private readonly RequestDelegate _next;
 
-    public ErrorHandlerMiddleware(RequestDelegate next)
+    public ErrorHandlerMiddleware(RequestDelegate next, ILogger<ErrorHandlerMiddleware> logger)
     {
         _next = next;
+        _logger = logger;
     }
 
     public async Task Invoke(HttpContext context)
@@ -21,20 +23,22 @@ public class ErrorHandlerMiddleware
         }
         catch (Exception error)
         {
+            _logger.LogCritical($"{error.GetType().Name} -> {error.Message}");
+
             var response = context.Response;
             response.ContentType = "application/json";
 
             switch (error)
             {
-                case UnauthorizedException e:
+                case UnauthorizedException:
                     // custom application error
                     response.StatusCode = (int)HttpStatusCode.Unauthorized;
                     break;
-                case AppException e:
+                case AppException:
                     // custom application error
                     response.StatusCode = (int)HttpStatusCode.BadRequest;
                     break;
-                case KeyNotFoundException e:
+                case KeyNotFoundException:
                     // not found error
                     response.StatusCode = (int)HttpStatusCode.NotFound;
                     break;
