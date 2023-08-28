@@ -1,7 +1,7 @@
 ﻿using Dotnet.MiniJira.Domain.Core;
 using Dotnet.MiniJira.Domain.Enums.Board;
 
-namespace Dotnet.MiniJira.Domain.Models.Board;
+namespace Dotnet.MiniJira.Domain.Entities;
 
 public class BoardColumns : Entity
 {
@@ -9,5 +9,5 @@ public class BoardColumns : Entity
     public string Name { get; set; }
     public string Description { get; set; }
     public DateTime DateCreate { get; set; } = DateTime.Now;
-    public List<Entities.Task>? Tasks { get; set; }
+    public List<Task>? Tasks { get; set; }
 }

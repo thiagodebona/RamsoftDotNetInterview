@@ -1,3 +1,4 @@
+using Dotnet.MiniJira.Domain.Entities;
 using Dotnet.MiniJira.Domain.Models.Board;
 using NUnit.Framework;
 

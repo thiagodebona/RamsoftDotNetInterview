@@ -1,4 +1,5 @@
 ﻿using Dotnet.MiniJira.Domain.Core;
+using Dotnet.MiniJira.Domain.Entities;
 
 namespace Dotnet.MiniJira.Domain.Models.Board;
 

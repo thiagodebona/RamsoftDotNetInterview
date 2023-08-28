@@ -1,7 +1,6 @@
 ﻿using Dotnet.MiniJira.Application.Interface;
 using Dotnet.MiniJira.Domain.Entities;
 using Dotnet.MiniJira.Domain.Enums.Board;
-using Dotnet.MiniJira.Domain.Models.Board;
 using Dotnet.MiniJira.Infrastructure;
 using Microsoft.Extensions.Logging;
 

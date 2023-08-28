@@ -51,7 +51,7 @@ while (true)
 
         ws.Dispose();
 
-        Thread.Sleep(1500);
+        Thread.Sleep(500);
 
         Console.Clear();
     }
@@ -86,7 +86,6 @@ var receiveTask = Task.Run(async () =>
 
             consoleWr.Write((new TableCreatorHelper().CreateTable(notification.Data)));
 
-            Console.SetWindowPosition(0, 0);
         }
     }
 });

@@ -1,7 +1,6 @@
 namespace Dotnet.MiniJira.Domain.Entities;
 
 using Dotnet.MiniJira.Domain.Core;
-using Dotnet.MiniJira.Domain.Models.Board;
 
 public class Board : Entity
 {
