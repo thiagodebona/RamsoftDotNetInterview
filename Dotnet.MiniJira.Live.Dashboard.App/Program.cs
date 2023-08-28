@@ -85,6 +85,8 @@ var receiveTask = Task.Run(async () =>
             consoleWr.WriteLine("{FC=Yellow}" + connectedAt.ToString("yyyy/MM/dd HH:mm") + " -> " + notification.Message + "{/FC}");
 
             consoleWr.Write((new TableCreatorHelper().CreateTable(notification.Data)));
+
+            Console.SetWindowPosition(0, 0);
         }
     }
 });

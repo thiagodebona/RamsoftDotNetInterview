@@ -16,10 +16,11 @@ namespace Dotnet.MiniJira.Live.Dashboard.App.Helpers
             {
                 toReturn.AppendLine("");
                 var table1 = new Table();
-                table1.SetHeaders("Board", "Columns", "Tasks", "Date create", "Archived tasks", "Id");
+                table1.SetHeaders("Board", "Columns", "Tasks", "Expir. tasks", "Date create", "Archived tasks", "Id");
                 var totalTasks = board.Columns.Select(p => new { total = p.Tasks?.Count() }).Sum(p => p.total).ToString();
+                var totalExpiredTasks = board.Columns.Select(p => new { total = p.Tasks?.Count(p => DateTime.Now >= p.DeadLine) }).Sum(p => p.total).ToString();
                 table1.AddRow(board.Name, board.Columns.Count.ToString(),
-                    totalTasks, board.DateCreate.ToString(dateFormat), board.ArchivedTasks?.Count.ToString() ?? "0", board.Id.ToString());
+                    totalTasks, totalExpiredTasks, board.DateCreate.ToString(dateFormat), board.ArchivedTasks?.Count.ToString() ?? "0", board.Id.ToString());
                 toReturn.Append(table1.ToString());
 
                 string[] columnItems = new string[] { };
@@ -42,7 +43,7 @@ namespace Dotnet.MiniJira.Live.Dashboard.App.Helpers
       Task status:  " + (DateTime.Now >= tsk.DeadLine ? "{FC=Red}Expired{/FC}" : "{FC=Blue}Not expired{/FC}") + $@"
       Date create:  {tsk.DateCreate.ToString(dateFormat)}
       Date update:  {{FC=Orange}}{tsk.DateUpdate?.ToString(dateFormat) ?? "Not updated yet"}" + @"{/FC}
-      Favorite:     " + (tsk.IsFavorite ? "{FC=Green}Yes{/FC}" : "{FC=Red}No{/FC}") + $@"
+      Favorite:     " + (tsk.IsFavorite ? "{FC=Green}Yes{/FC}" : "{FC=Cyan}No{/FC}") + $@"
       " + (item.Tasks.Count > 1 && item.Tasks[item.Tasks.IndexOf(tsk)] != item.Tasks[item.Tasks.Count - 1] ? "_________________________________________" : ""));
                     }
                     toReturn.AppendLine("");

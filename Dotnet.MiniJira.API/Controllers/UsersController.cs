@@ -48,4 +48,12 @@ public class UsersController : ControllerBase
         var user = await _userService.GetById(id);
         return Ok(user);
     }
+
+    [AllowAnonymous]
+    [HttpGet("")]
+    public async Task<IActionResult> GetAll()
+    {
+        var users = await _userService.GetAll();
+        return Ok(users);
+    }
 }

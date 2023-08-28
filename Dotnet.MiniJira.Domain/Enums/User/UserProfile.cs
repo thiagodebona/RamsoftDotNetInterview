@@ -2,7 +2,7 @@
 
 public enum UserProfile
 {
-    ADMIN = 0,
-    DEV = 1,
-    TEST = 2
+    Administrator = 0,
+    Developer = 1,
+    Tester = 2
 }

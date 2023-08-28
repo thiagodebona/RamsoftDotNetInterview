@@ -68,7 +68,7 @@ public class MockedBaseTest
             Username = "TestAdmin",
             Name = $"TestAdmin",
             Password = $"TestAdmin",
-            Profile = Domain.Enums.User.UserProfile.ADMIN
+            Profile = Domain.Enums.User.UserProfile.Administrator
         }, "").Result.Id).Result;
 
         // Mock dev user
@@ -78,7 +78,7 @@ public class MockedBaseTest
             Username = "Dev2",
             Name = $"Dev2",
             Password = $"Dev2",
-            Profile = Domain.Enums.User.UserProfile.DEV
+            Profile = Domain.Enums.User.UserProfile.Developer
         }, "").Result.Id).Result;
 
         // Mock dev user
@@ -88,7 +88,7 @@ public class MockedBaseTest
             Username = "Test2",
             Name = $"Test2",
             Password = $"Test2",
-            Profile = Domain.Enums.User.UserProfile.TEST
+            Profile = Domain.Enums.User.UserProfile.Tester
         }, "").Result.Id).Result;
     }
 

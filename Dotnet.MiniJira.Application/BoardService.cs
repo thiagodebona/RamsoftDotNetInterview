@@ -29,7 +29,7 @@ public class BoardService : IBoardService
 
     public async Task<Board> CreateBoard(User user, CreateBoardRequest model)
     {
-        if (user.Profile != Domain.Enums.User.UserProfile.ADMIN)
+        if (user.Profile != Domain.Enums.User.UserProfile.Administrator)
         {
             throw new Exception("Only admin profiles can create new boards");
         }
@@ -91,7 +91,7 @@ public class BoardService : IBoardService
 
     public async Task<bool> DeleteBoard(User user, string boardId)
     {
-        if (user.Profile != Domain.Enums.User.UserProfile.ADMIN)
+        if (user.Profile != Domain.Enums.User.UserProfile.Administrator)
         {
             throw new Exception("Only admin profiles can create new boards");
         }
@@ -113,7 +113,7 @@ public class BoardService : IBoardService
 
     public async Task<Board> UpdateBoard(User user, UpdateBoardRequest model)
     {
-        if (user.Profile != Domain.Enums.User.UserProfile.ADMIN)
+        if (user.Profile != Domain.Enums.User.UserProfile.Administrator)
         {
             throw new Exception("Only admin profiles can create new boards");
         }

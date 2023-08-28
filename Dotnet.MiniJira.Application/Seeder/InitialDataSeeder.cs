@@ -35,7 +35,7 @@ namespace Dotnet.MiniJira.Application.Seeder
                     Username = "admin",
                     Name = "Administrator",
                     PasswordHash = BCrypt.Net.BCrypt.HashPassword("admin"),
-                    Profile = Domain.Enums.User.UserProfile.ADMIN
+                    Profile = Domain.Enums.User.UserProfile.Administrator
                 };
 
                 // Create a test user
@@ -45,7 +45,7 @@ namespace Dotnet.MiniJira.Application.Seeder
                     Username = "tester",
                     Name = "QA Tester",
                     PasswordHash = BCrypt.Net.BCrypt.HashPassword("tester"),
-                    Profile = Domain.Enums.User.UserProfile.TEST
+                    Profile = Domain.Enums.User.UserProfile.Tester
                 };
 
                 // Create a developer profile
@@ -55,7 +55,7 @@ namespace Dotnet.MiniJira.Application.Seeder
                     Username = "developer",
                     Name = "Dotnet Developer",
                     PasswordHash = BCrypt.Net.BCrypt.HashPassword("developer"),
-                    Profile = Domain.Enums.User.UserProfile.DEV
+                    Profile = Domain.Enums.User.UserProfile.Developer
                 };
 
                 await _userRepository.AddAsync(adminToAdd, new CancellationToken());
@@ -82,6 +82,14 @@ namespace Dotnet.MiniJira.Application.Seeder
                                     UserCreated = adminToAdd,
                                     Attachments = attachItemToAdd,
                                     Description = "The last few days I've notice that in the period of afternoon the service sometimes responds with 500 interval server error"
+                                },
+                                new Domain.Entities.Task {
+                                    Assignee = devToAdd,
+                                    DeadLine = DateTime.Now.AddDays(7),
+                                    Name = "Issue on login module Error 403",
+                                    UserCreated = adminToAdd,
+                                    Attachments = attachItemToAdd,
+                                    Description = "The last few days I've notice that in the period of morning the service sometimes responds with 403 unauthorized error"
                                 }
                            }
                        },

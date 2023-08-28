@@ -55,7 +55,7 @@ public class WebSocketRegister : IWebSocketRegister
 
                     await Broadcast(JsonSerializer.Serialize(new BroadCasterMessageModel {
                          Data = boards,
-                         Message = $"Welcome to MiniJira App - Connection started"
+                         Message = $"Hello {userInfo.Item2.Name}! Welcome to MiniJira App"
                     }));
 
                     await ReceiveMessage(ws, async (result, buffer) =>

@@ -8,5 +8,6 @@ namespace Dotnet.MiniJira.Application.Interface
         public Task<AuthenticateResponse> Authenticate(AuthenticateRequest model, string ipAddress);
         public Task<AuthenticateResponse> CreateUser(CreateUserRequest model, string ipAddress);
         public Task<User> GetById(string id);
+        public Task<List<User>> GetAll();
     }
 }

@@ -7,9 +7,6 @@ using Dotnet.MiniJira.Domain.Helpers;
 using Dotnet.MiniJira.Domain.Models.Broadcaster;
 using Dotnet.MiniJira.Domain.Models.Users;
 using Dotnet.MiniJira.Infrastructure;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using MongoDB.Bson;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -62,7 +59,7 @@ public class UserService : IUserService
                 Username = model.Username,
                 Name = model.Name,
                 PasswordHash = BCrypt.HashPassword(model.Password),
-                Profile = model.Profile ?? Domain.Enums.User.UserProfile.DEV
+                Profile = model.Profile ?? Domain.Enums.User.UserProfile.Developer
             }, new CancellationToken());
 
             return await Authenticate(new AuthenticateRequest
@@ -80,5 +77,10 @@ public class UserService : IUserService
         var user = (await _userRepository.FindBy(x => x.Id == id, new CancellationToken())).FirstOrDefault();
         if (user == null) throw new KeyNotFoundException("User not found");
         return user;
+    }
+
+    public async Task<List<User>> GetAll()
+    {
+        return await _userRepository.FindAsync(new CancellationToken());
     }
 }

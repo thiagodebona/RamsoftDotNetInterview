@@ -13,7 +13,7 @@ public class UsersTests : MockedBaseTest
             Username = "TestAdminTest",
             Name = $"TestAdminTest",
             Password = $"TestAdminTest",
-            Profile = Domain.Enums.User.UserProfile.ADMIN
+            Profile = Domain.Enums.User.UserProfile.Administrator
         };
 
         var result = _userService.CreateUser(userToCreate, "").Result;
@@ -22,7 +22,7 @@ public class UsersTests : MockedBaseTest
         Assert.AreEqual(userToCreate.Name, result.Name, "Name should not be null");
         Assert.AreEqual(userToCreate.Email, result.Email, "Email should not be null");
         Assert.IsNotNull(userToCreate.Password, "Password should not be null");
-        Assert.AreEqual(userToCreate.Profile, Domain.Enums.User.UserProfile.ADMIN, "Name should not be null");
+        Assert.AreEqual(userToCreate.Profile, Domain.Enums.User.UserProfile.Administrator, "Name should not be null");
     }
 
     [Test]
@@ -34,7 +34,7 @@ public class UsersTests : MockedBaseTest
             Name = $"Developer_",
             Username = "Developer_",
             Password = $"Developer_",
-            Profile = Domain.Enums.User.UserProfile.DEV
+            Profile = Domain.Enums.User.UserProfile.Developer
         };
 
         var result = _userService.CreateUser(userToCreate, "").Result;
@@ -43,7 +43,7 @@ public class UsersTests : MockedBaseTest
         Assert.AreEqual(userToCreate.Name, result.Name, "Name should not be null");
         Assert.AreEqual(userToCreate.Email, result.Email, "Email should not be null");
         Assert.IsNotNull(userToCreate.Password, "Password should not be null");
-        Assert.AreEqual(userToCreate.Profile, Domain.Enums.User.UserProfile.DEV, "Name should not be null");
+        Assert.AreEqual(userToCreate.Profile, Domain.Enums.User.UserProfile.Developer, "Name should not be null");
     }
 
     [Test]
@@ -55,7 +55,7 @@ public class UsersTests : MockedBaseTest
             Name = $"Tester",
             Username = "Tester",
             Password = $"Tester",
-            Profile = Domain.Enums.User.UserProfile.TEST
+            Profile = Domain.Enums.User.UserProfile.Tester
         };
 
         var result = _userService.CreateUser(userToCreate, "").Result;
@@ -64,7 +64,7 @@ public class UsersTests : MockedBaseTest
         Assert.AreEqual(userToCreate.Name, result.Name, "Name should not be null");
         Assert.AreEqual(userToCreate.Email, result.Email, "Email should not be null");
         Assert.IsNotNull(userToCreate.Password, "Password should not be null");
-        Assert.AreEqual(userToCreate.Profile, Domain.Enums.User.UserProfile.TEST, "Name should not be null");
+        Assert.AreEqual(userToCreate.Profile, Domain.Enums.User.UserProfile.Tester, "Name should not be null");
     }
 
     [Test]
@@ -76,7 +76,7 @@ public class UsersTests : MockedBaseTest
             Name = $"TestToken",
             Username = "TestToken",
             Password = $"TestToken",
-            Profile = Domain.Enums.User.UserProfile.ADMIN
+            Profile = Domain.Enums.User.UserProfile.Administrator
         };
 
         var result = _userService.CreateUser(userToCreate, "").Result;
@@ -94,7 +94,7 @@ public class UsersTests : MockedBaseTest
             Name = $"TestToken2",
             Username = "TestToken2",
             Password = $"TestToken2",
-            Profile = Domain.Enums.User.UserProfile.ADMIN
+            Profile = Domain.Enums.User.UserProfile.Administrator
         };
 
         var result = _userService.CreateUser(userToCreate, "").Result;
@@ -115,7 +115,7 @@ public class UsersTests : MockedBaseTest
             Name = $"TestToken3",
             Username = "TestToken3",
             Password = $"TestToken3",
-            Profile = Domain.Enums.User.UserProfile.ADMIN
+            Profile = Domain.Enums.User.UserProfile.Administrator
         };
         var result = _userService.CreateUser(userToCreate, "").Result;
         Assert.IsNotNull(result?.Id);
