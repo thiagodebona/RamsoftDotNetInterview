@@ -1,5 +1,5 @@
 # Welcome to MiniJira tasks manager App!
-## Created from scratch, took 23 hours to build it. Including this documentation
+## Created from scratch, took 30 hours to build it. Including this documentation
 
 Simple .Net Core 6 App tasks manager  **application** meant to be sent to **Ramsoft DotNet interview** for **Thiago**
 
