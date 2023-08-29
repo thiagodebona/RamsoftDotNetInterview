@@ -21,7 +21,7 @@ Used technologies:
 Including ->   Simple console application to see the MiniJira tasks and board at **live**
 
 # MiniJira 1.0 Features
-s
+
  - Fully functional SwaggerUI with Bearer Auth available
  - Manage **multiple** boards
  - Create and authenticate new user
