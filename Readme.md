@@ -20,6 +20,39 @@ Used technologies:
   
 Including ->   Simple console application to see the MiniJira tasks and board at **live**
 
+
+## What was requested
+
+- Users can add new tasks to the task board
+   - Details include name, description, deadline
+- Users can edit tasks and all details
+- Users can delete tasks
+- Users can attach images to tasks
+- Users can drill into tasks to see all details
+- Users can add columns to the task board representing different work states (ie. ToDo, In Progress and Done)
+- Users can move tasks between columns
+- Users can sort tasks in each column alphabetically by name
+  - Favorited tasks should be sorted to the top every time
+ 
+
+## What was delivered
+- All the requested feature plus the following:
+   > Multiple boards management, create/update/delete boards and it's informations
+   
+   > Archived tasks from deleted columns
+
+   > Creation of users and authentication
+    
+   > Know the user who created the task
+ 
+   > User can delete columns from boards and all it's linked tasks will be moved to the archived tasks
+   
+   > Assign users to tasks
+ 
+   > Event dispatcher, notify and update connected users with the changes via WebSocket
+
+   > Live dashboard app to see the data
+ 
 # MiniJira 1.0 Features
 
  - Fully functional SwaggerUI with Bearer Auth available
