@@ -39,13 +39,13 @@ Including ->   Simple console application to see the MiniJira tasks and board at
 - All the requested feature plus the following:
    > Multiple boards management, create/update/delete boards and it's informations
    
-   > User can delete columns from boards and all it's linked tasks will be moved to the archived tasks
-   
-   > Creation of users and authentication
+   > User management and authentication
     
    > Know the user who created the task
    
    > Assign users to tasks
+   
+   > User can delete columns from boards and all it's linked tasks will be moved to the archived tasks
  
    > Event dispatcher, notify and update connected users with the changes via WebSocket
 
