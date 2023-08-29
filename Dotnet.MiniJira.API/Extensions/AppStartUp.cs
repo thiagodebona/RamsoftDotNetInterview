@@ -52,7 +52,7 @@ namespace Dotnet.MiniJira.API.Extensions
 
             var webSocketUrl = settings.GetSection("AppSettings").GetValue<string>("ServerUrl").Replace("http", "ws");
 
-            app.Services.GetService<IWebSocketRegister>()?.SetUpLiveNotificationsServer(app, webSocketUrl);
+            app.Services.GetService<IWebSocketRegister>()?.SetUpLiveNotificationsServer(app, $"{webSocketUrl}/ws");
         }
     }
 }
