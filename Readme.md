@@ -145,7 +145,7 @@ Now we can see in the client that a new task was inserted in the board in the co
 
 
 
-## Business Rules
+## Business Rules - Permissions
 
 **User module**
 
