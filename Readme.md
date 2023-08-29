@@ -159,7 +159,7 @@ Now we can see in the client that a new task was inserted in the board in the co
 
 |    route|action|admin|develop|tester
 |----------------|-----------|----------|-------|-------
-|/Board|POST|true|false| false
+|/Board|POST|<span style="color:green">true</span>.|false| false
 |/Board|PUT|true|false| false|
 |/Board|GET|true|true| true|
 |/Board/{id}|DELETE|true|false| false|
