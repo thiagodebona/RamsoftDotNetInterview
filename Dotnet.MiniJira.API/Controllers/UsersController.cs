@@ -28,7 +28,7 @@ public class UsersController : ControllerBase
 
     [AllowAnonymous]
     [HttpPost("create")]
-    public async Task<IActionResult> CreateUser(CreateUserRequest model)
+    public async Task<IActionResult> Create(CreateUserRequest model)
     {
         await _userService.CreateUser(model, "http://mini.jira");
         var response = await _userService.Authenticate(new AuthenticateRequest
@@ -45,15 +45,15 @@ public class UsersController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(string id)
     {
-        var user = await _userService.GetById(id);
+        var user = await _userService.OneAsync(id);
         return Ok(user);
     }
 
-    [AllowAnonymous]
-    [HttpGet("")]
-    public async Task<IActionResult> GetAll()
-    {
-        var users = await _userService.GetAll();
-        return Ok(users);
-    }
+    //[AllowAnonymous]
+    //[HttpGet("")]
+    //public async Task<IActionResult> GetAll()
+    //{
+    //    var users = await _userService.GetAll();
+    //    return Ok(users);
+    //}
 }

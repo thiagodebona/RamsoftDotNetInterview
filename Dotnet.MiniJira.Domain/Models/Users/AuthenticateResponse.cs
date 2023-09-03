@@ -17,7 +17,7 @@ public class AuthenticateResponse
 
     public AuthenticateResponse(User user, string jwtToken, string refreshToken)
     {
-        Id = user.Id;
+        Id = user.ID;
         Name = user.Name;
         Username = user.Username;
         JwtToken = jwtToken;

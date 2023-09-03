@@ -11,13 +11,13 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-public class JwtService : IJwtService
+public class JwtRepository : IJwtRepository
 {
-    private readonly ILogger<JwtService> _logger;
+    private readonly ILogger<JwtRepository> _logger;
     private readonly AppSettings _appSettings;
 
-    public JwtService(
-        IOptions<AppSettings> appSettings, ILogger<JwtService> logger)
+    public JwtRepository(
+        IOptions<AppSettings> appSettings, ILogger<JwtRepository> logger)
     {
         _appSettings = appSettings.Value;
         _logger = logger;
@@ -30,7 +30,7 @@ public class JwtService : IJwtService
         var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
-            Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),
+            Subject = new ClaimsIdentity(new[] { new Claim("id", user.ID.ToString()) }),
             Expires = DateTime.UtcNow.AddMinutes(15),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
         };

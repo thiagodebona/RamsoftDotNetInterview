@@ -17,15 +17,13 @@ public interface IWebSocketRegister
 public class WebSocketRegister : IWebSocketRegister
 {
     private IUserService _userService;
-    private IBoardService _boardService;
     private ILogger<WebSocketRegister> _logger;
 
     public List<Tuple<WebSocket, AuthenticateResponse>> connections = new List<Tuple<WebSocket, AuthenticateResponse>>();
 
-    public WebSocketRegister(IUserService userService, IBoardService boardService, ILogger<WebSocketRegister> logger)
+    public WebSocketRegister(IUserService userService, ILogger<WebSocketRegister> logger)
     {
         _userService = userService;
-        _boardService = boardService;
         _logger = logger;
     }
 
@@ -51,10 +49,8 @@ public class WebSocketRegister : IWebSocketRegister
                     var userInfo = new Tuple<WebSocket, AuthenticateResponse>(ws, login);
                     connections.Add(userInfo);
 
-                    var boards = await _boardService.GetAll();
-
                     await Broadcast(JsonSerializer.Serialize(new BroadCasterMessageModel {
-                         Data = boards,
+                         Data = new List<dynamic>(),
                          Message = $"Hello {userInfo.Item2.Name}! Welcome to MiniJira App"
                     }));
 

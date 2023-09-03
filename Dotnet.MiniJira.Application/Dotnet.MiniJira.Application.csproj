@@ -7,11 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BCrypt.Net-Next" Version="4.0.2" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.15.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Dotnet.MiniJira.Domain\Dotnet.MiniJira.Domain.csproj" />
     <ProjectReference Include="..\Dotnet.MiniJira.Infrastructure\Dotnet.MiniJira.Infrastructure.csproj" />
   </ItemGroup>

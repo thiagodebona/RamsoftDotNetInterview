@@ -1,6 +1,6 @@
 namespace Dotnet.MiniJira.Domain.Helpers;
 
-public class AppSettings
+public sealed class AppSettings
 {
     public string Secret { get; set; }
 
@@ -9,4 +9,15 @@ public class AppSettings
     public int RefreshTokenTTL { get; set; }
 
     public string ServerUrl { get; set; }
+
+    public DatabaseSettings Database { get; set; }
+
+    public class DatabaseSettings
+    {
+        public string Host { get; set; }
+        public int? Port { get; set; }
+        public string Name { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+    }
 }

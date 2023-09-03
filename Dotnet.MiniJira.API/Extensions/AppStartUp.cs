@@ -1,15 +1,15 @@
-﻿using Dotnet.MiniJira.API.Middleware;
+﻿using System.Text.Json.Serialization;
+using Dotnet.MiniJira.API.Middleware;
 using Dotnet.MiniJira.API.Notifications;
 using Dotnet.MiniJira.Application.Interface;
-using Microsoft.Extensions.Options;
+using Dotnet.MiniJira.Domain.Helpers;
 using MiniJira.API.MIddleware;
-using System.Text.Json.Serialization;
 
 namespace Dotnet.MiniJira.API.Extensions
 {
     public static class AppStartUp
     {
-        public static void ConfigureServer(this IServiceCollection services, WebApplicationBuilder builder)
+        public static async Task ConfigureServer(this IServiceCollection services, WebApplicationBuilder builder)
         {
             builder.WebHost.UseUrls(builder.Configuration.GetSection("AppSettings").GetValue<string>("ServerUrl"));
 
@@ -21,7 +21,7 @@ namespace Dotnet.MiniJira.API.Extensions
                     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 });
 
-            services.InjectRequiredDependencies(builder.Configuration);
+            await services.InjectRequiredDependencies(builder.Configuration);
 
             // Extension that do all the required config to enable swagger v2
             services.ConfigureSwagger();
@@ -29,10 +29,6 @@ namespace Dotnet.MiniJira.API.Extensions
 
         public static void ConfigureApp(this WebApplication app, IConfiguration settings)
         {
-            /* Seeding the db */
-
-            app.Services.GetService<IInitialDataSeederService>()?.SeedDatabase().Wait();
-
             app.ConfigureSwagger();
 
             // global cors policy
@@ -50,7 +46,9 @@ namespace Dotnet.MiniJira.API.Extensions
 
             app.MapControllers();
 
-            var webSocketUrl = settings.GetSection("AppSettings").GetValue<string>("ServerUrl").Replace("http", "ws");
+            var appSettings = settings.GetSection(nameof(AppSettings)).Get<AppSettings>()!;
+
+            var webSocketUrl = appSettings.ServerUrl.Replace("http", "ws");
 
             app.Services.GetService<IWebSocketRegister>()?.SetUpLiveNotificationsServer(app, $"{webSocketUrl}/ws");
         }

@@ -1,27 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Thiago de Bona\\Desktop\\RamsoftDotNetInterview\\Dotnet.MiniJira.Live.Dashboard\\Dotnet.MiniJira.Live.Dashboard.csproj": {}
+    "/Users/thiagodebona/Documents/Repository/RamsoftDotNetInterview/Dotnet.MiniJira.Live.Dashboard/Dotnet.MiniJira.Live.Dashboard.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Thiago de Bona\\Desktop\\RamsoftDotNetInterview\\Dotnet.MiniJira.Domain\\Dotnet.MiniJira.Domain.csproj": {
+    "/Users/thiagodebona/Documents/Repository/RamsoftDotNetInterview/Dotnet.MiniJira.Domain/Dotnet.MiniJira.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Thiago de Bona\\Desktop\\RamsoftDotNetInterview\\Dotnet.MiniJira.Domain\\Dotnet.MiniJira.Domain.csproj",
+        "projectUniqueName": "/Users/thiagodebona/Documents/Repository/RamsoftDotNetInterview/Dotnet.MiniJira.Domain/Dotnet.MiniJira.Domain.csproj",
         "projectName": "Dotnet.MiniJira.Domain",
-        "projectPath": "C:\\Users\\Thiago de Bona\\Desktop\\RamsoftDotNetInterview\\Dotnet.MiniJira.Domain\\Dotnet.MiniJira.Domain.csproj",
-        "packagesPath": "C:\\Users\\Thiago de Bona\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Thiago de Bona\\Desktop\\RamsoftDotNetInterview\\Dotnet.MiniJira.Domain\\obj\\",
+        "projectPath": "/Users/thiagodebona/Documents/Repository/RamsoftDotNetInterview/Dotnet.MiniJira.Domain/Dotnet.MiniJira.Domain.csproj",
+        "packagesPath": "/Users/thiagodebona/.nuget/packages/",
+        "outputPath": "/Users/thiagodebona/Documents/Repository/RamsoftDotNetInterview/Dotnet.MiniJira.Domain/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Thiago de Bona\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/thiagodebona/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "/usr/local/share/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -47,6 +46,10 @@
             "MongoDB.Bson": {
               "target": "Package",
               "version": "[2.21.0, )"
+            },
+            "MongoDB.Entities": {
+              "target": "Package",
+              "version": "[22.1.0, )"
             }
           },
           "imports": [
@@ -65,36 +68,35 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.307/RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Thiago de Bona\\Desktop\\RamsoftDotNetInterview\\Dotnet.MiniJira.Live.Dashboard\\Dotnet.MiniJira.Live.Dashboard.csproj": {
+    "/Users/thiagodebona/Documents/Repository/RamsoftDotNetInterview/Dotnet.MiniJira.Live.Dashboard/Dotnet.MiniJira.Live.Dashboard.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Thiago de Bona\\Desktop\\RamsoftDotNetInterview\\Dotnet.MiniJira.Live.Dashboard\\Dotnet.MiniJira.Live.Dashboard.csproj",
+        "projectUniqueName": "/Users/thiagodebona/Documents/Repository/RamsoftDotNetInterview/Dotnet.MiniJira.Live.Dashboard/Dotnet.MiniJira.Live.Dashboard.csproj",
         "projectName": "Dotnet.MiniJira.Live.Dashboard",
-        "projectPath": "C:\\Users\\Thiago de Bona\\Desktop\\RamsoftDotNetInterview\\Dotnet.MiniJira.Live.Dashboard\\Dotnet.MiniJira.Live.Dashboard.csproj",
-        "packagesPath": "C:\\Users\\Thiago de Bona\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Thiago de Bona\\Desktop\\RamsoftDotNetInterview\\Dotnet.MiniJira.Live.Dashboard\\obj\\",
+        "projectPath": "/Users/thiagodebona/Documents/Repository/RamsoftDotNetInterview/Dotnet.MiniJira.Live.Dashboard/Dotnet.MiniJira.Live.Dashboard.csproj",
+        "packagesPath": "/Users/thiagodebona/.nuget/packages/",
+        "outputPath": "/Users/thiagodebona/Documents/Repository/RamsoftDotNetInterview/Dotnet.MiniJira.Live.Dashboard/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Thiago de Bona\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/thiagodebona/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "/usr/local/share/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Thiago de Bona\\Desktop\\RamsoftDotNetInterview\\Dotnet.MiniJira.Domain\\Dotnet.MiniJira.Domain.csproj": {
-                "projectPath": "C:\\Users\\Thiago de Bona\\Desktop\\RamsoftDotNetInterview\\Dotnet.MiniJira.Domain\\Dotnet.MiniJira.Domain.csproj"
+              "/Users/thiagodebona/Documents/Repository/RamsoftDotNetInterview/Dotnet.MiniJira.Domain/Dotnet.MiniJira.Domain.csproj": {
+                "projectPath": "/Users/thiagodebona/Documents/Repository/RamsoftDotNetInterview/Dotnet.MiniJira.Domain/Dotnet.MiniJira.Domain.csproj"
               }
             }
           }
@@ -124,7 +126,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.307/RuntimeIdentifierGraph.json"
         }
       }
     }

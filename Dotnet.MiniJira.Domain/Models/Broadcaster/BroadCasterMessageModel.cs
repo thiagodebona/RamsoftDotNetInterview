@@ -2,6 +2,6 @@
 public class BroadCasterMessageModel
 {
     public string Message { get; set; }
-    public List<Entities.Board> Data { get; set; }
+    public List<dynamic> Data { get; set; }
 }
 

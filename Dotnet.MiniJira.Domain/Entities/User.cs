@@ -1,8 +1,8 @@
 namespace Dotnet.MiniJira.Domain.Entities;
 
-using Dotnet.MiniJira.Domain.Core;
-using Dotnet.MiniJira.Domain.Enums.User;
 using System.Text.Json.Serialization;
+using Dotnet.MiniJira.Domain.Enums.User;
+using MongoDB.Entities;
 
 public class User : Entity
 {

@@ -27,7 +27,6 @@ public class MockedBaseTest
 
     public static IBoardService? _boardService;
     public static IUserService? _userService;
-    public static ITaskService? _taskService;
     public User _adminUser;
     public User _devUser;
     public User _testUser;
@@ -124,9 +123,9 @@ public class MockedBaseTest
         // configure DI for application services
         var mongoClientSettings = MongoClientSettings.FromConnectionString(_runner.ConnectionString);
         services.AddSingleton<IMongoClient>(new MongoClient(mongoClientSettings));
-        services.AddSingleton(typeof(IMongoBaseRepository<>), typeof(MongoBaseRepository<>));
+        services.AddSingleton(typeof(IUserRepository<>), typeof(UserRepository<>));
 
-        services.AddSingleton<IJwtService, JwtService>();
+        services.AddSingleton<JwtRepository, JwtRepository>();
         services.AddSingleton<IUserService, UserService>();
         services.AddSingleton<IBoardService, BoardService>();
         services.AddSingleton<ITaskService, TaskService>();

@@ -4,13 +4,12 @@ using Dotnet.MiniJira.Domain.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.ConfigureServer(builder);
+await builder.Services.ConfigureServer(builder);
 
 var app = builder.Build();
 
 app.ConfigureApp(builder.Configuration);
 
 app.UseWebSockets();
-
 
 await app.RunAsync();
